@@ -1,23 +1,28 @@
 package com.example.projetfilrouge_G2.repository.entity;
 
+import jakarta.persistence.*;
 import java.util.List;
 
+@Entity
+@Table(name="user")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column(name ="username")
     private String username;
-
+    @Column(name = "password")
     private String password;
-
+    @Column(name = "phoneNumber")
     private Long phoneNumber;
-
+    @Column(name="photoUrl")
     private String photoUrl;
-
+    @Column(name="email")
     private String email;
-
+//    @OneToMany(mappedBy = "user")
     private List<Transaction> purchaseHistory;
-
+//    @OneToMany(mappedBy = "user")
     private List<Transaction> sellingHistory;
 
     public User() {}

@@ -1,14 +1,26 @@
 package com.example.projetfilrouge_G2.repository.entity;
 
+import jakarta.persistence.*;
 import java.time.LocalDate;
 
+@Entity
+@Table(name="tickets")
 public class Ticket {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long id;
+
+    @Column(name ="date")
     private LocalDate date;
+
+    @Column(name ="event")
     private String event;
+
+    @Column(name = "price")
     private Float price;
 
+    //ajouter cardinalité( one to one ou Many to one
     public Ticket() {}
 
     public Ticket(Long id, LocalDate date, String event, Float price) {

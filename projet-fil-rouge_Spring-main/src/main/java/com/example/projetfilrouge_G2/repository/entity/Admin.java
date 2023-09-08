@@ -1,13 +1,20 @@
 package com.example.projetfilrouge_G2.repository.entity;
 
-import java.util.List;
+import jakarta.persistence.*;
 
+import java.util.List;
+@Entity
+@Table(name="Admin")
 public class Admin {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name ="login")
     private String login;
 
+    @Column(name ="password")
     private String password;
 
     public Admin(){}

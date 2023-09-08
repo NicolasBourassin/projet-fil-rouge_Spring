@@ -1,16 +1,31 @@
 package com.example.projetfilrouge_G2.repository.entity;
 
+import jakarta.persistence.*;
 import java.time.LocalDate;
 
+@Entity
+@Table(name="transaction")
 public class Transaction {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name ="completed")
     private Boolean completed;
 
+    @Column(name ="tiket")
     private Ticket ticket;
 
+    @Column(name ="date")
     private LocalDate date;
+
+    @Column(name ="rating")
+    private Float rating;
+
+//    @ManyToOne
+//    @JoinColumn(name = "user_id")
+//    private User user;
 
     public Transaction() {}
 

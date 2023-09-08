@@ -23,4 +23,16 @@ public class TicketService {
         TicketDto ticketDto = new TicketDto(ticket);
         return ticketDto;
     }
+
+    public void save(TicketDto ticketDto) {
+        Ticket ticketToAdd = new Ticket(ticketDto.getDate(),
+                ticketDto.getEvent(),
+                ticketDto.getPrice());
+        ticketRepository.save(ticketToAdd);
+    }
+
+    public void remove(Long id) {
+        ticketRepository.deleteById(id);
+    }
+
 }

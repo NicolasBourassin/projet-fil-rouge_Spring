@@ -14,8 +14,14 @@ public class TicketService {
     public TicketService(TicketRepository ticketRepository){
         this.ticketRepository = ticketRepository;
     }
-    public List<Ticket> fetchAll() {
-        return ticketRepository.findAll();
+    public List<TicketDto> fetchAll() {
+        List<Ticket> allTickets = ticketRepository.findAll();
+        List<TicketDto> allTicketDto = null;
+        for (Ticket ticket: allTickets) {
+            TicketDto ticketDto = new TicketDto(Optional.ofNullable(ticket));
+            allTicketDto.add(ticketDto);
+        }
+        return allTicketDto;
     }
 
     public TicketDto fetchById(Long id) throws Exception {

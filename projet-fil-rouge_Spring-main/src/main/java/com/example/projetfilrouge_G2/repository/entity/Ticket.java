@@ -20,7 +20,7 @@ public class Ticket {
     @Column(name = "price")
     private Float price;
 
-    //ajouter cardinalité( one to one ou Many to one
+    //ajouter cardinalité( one to one ou Many to one)
     public Ticket() {}
 
     public Ticket(Long id, LocalDate date, String event, Float price) {

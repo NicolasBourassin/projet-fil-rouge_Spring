@@ -14,8 +14,10 @@ public class Transaction {
     @Column(name ="completed")
     private Boolean completed;
 
-    @Column(name ="tiket")
+    @Column(name ="ticket")
     private Ticket ticket;
+//    @OneToOne(mappedBy = "transaction")
+//    private Ticket ticket;
 
     @Column(name ="date")
     private LocalDate date;
@@ -33,6 +35,14 @@ public class Transaction {
         this.completed = completed;
         this.ticket = ticket;
         this.date = date;
+    }
+
+    public Float getRating() {
+        return rating;
+    }
+
+    public void setRating(Float rating) {
+        this.rating = rating;
     }
 
     public Boolean getCompleted() {return completed;}
@@ -58,6 +68,9 @@ public class Transaction {
                 ", completed=" + completed +
                 ", ticket=" + ticket +
                 ", date=" + date +
+//                ", ticket=" + ticket +
+                ", date=" + date +
+                ", rating=" + rating +
                 '}';
     }
 }

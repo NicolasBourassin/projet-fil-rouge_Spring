@@ -14,6 +14,7 @@ public class TicketService {
     public TicketService(TicketRepository ticketRepository){
         this.ticketRepository = ticketRepository;
     }
+
     public List<TicketDto> fetchAll() {
         List<Ticket> allTickets = ticketRepository.findAll();
         List<TicketDto> allTicketDto = null;
@@ -41,4 +42,18 @@ public class TicketService {
         ticketRepository.deleteById(id);
     }
 
+
+    public List<TicketDto> findTicketByEventContainingIgnoreCase(String event) {
+        return ticketRepository.findTicketByEventContainingIgnoreCase(event);
+    }
+
+    public Optional<TicketDto> findById(Long id) {
+        TicketDto ticketDto = new TicketDto(ticketRepository.findById(id));
+        return Optional.of(ticketDto);
+    }
+
+
+    public void deleteById(Long id) {
+        ticketRepository.deleteById(id);
+    }
 }

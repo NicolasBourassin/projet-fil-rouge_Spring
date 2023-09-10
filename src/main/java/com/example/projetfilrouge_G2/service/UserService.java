@@ -41,8 +41,21 @@ public class UserService {
         userRepository.save(userToAdd);
     }
 
+
     public void remove(Long id) {
         userRepository.deleteById(id);
     }
 
+    public List<UserDto> findByUsernameIsContainingIgnoreCase(String username) {
+        return userRepository.findByUsernameIsContainingIgnoreCase(username);
+    }
+
+    public Optional<UserDto> findById(Long id) {
+        UserDto userDto = new UserDto(userRepository.findById(id));
+        return Optional.of(userDto);
+    }
+
+    public void deleteById(Long id) {
+        userRepository.deleteById(id);
+    }
 }

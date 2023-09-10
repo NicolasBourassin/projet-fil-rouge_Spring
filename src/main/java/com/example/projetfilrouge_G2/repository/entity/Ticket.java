@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name="tickets")
+@Table(name="ticket")
 public class Ticket {
 
     @Id
@@ -20,7 +20,11 @@ public class Ticket {
     @Column(name = "price")
     private Float price;
 
-    //ajouter cardinalité( one to one ou Many to one
+
+//    @OneToOne(mappedBy = "ticket")
+//    private Transaction transaction;
+
+    //ajouter cardinalité( one to one ou Many to one)
     public Ticket() {}
 
     public Ticket(Long id, LocalDate date, String event, Float price) {
@@ -35,6 +39,9 @@ public class Ticket {
         this.event = event;
         this.price = price;
     }
+
+
+    public Ticket(Long id, String event, Float price) {}
 
     public Long getId() {
         return id;

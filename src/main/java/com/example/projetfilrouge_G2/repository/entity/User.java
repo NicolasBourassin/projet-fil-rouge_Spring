@@ -21,9 +21,10 @@ public class User {
     @Column(name="email")
     private String email;
 //    @OneToMany(mappedBy = "user")
-    private List<Transaction> purchaseHistory;
-//    @OneToMany(mappedBy = "user")
-    private List<Transaction> sellingHistory;
+    
+//    private List<Transaction> purchaseHistory;
+////    @OneToMany(mappedBy = "user")
+//    private List<Transaction> sellingHistory;
 
     public User() {}
 
@@ -34,8 +35,8 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.photoUrl = photoUrl;
         this.email = email;
-        this.purchaseHistory = purchaseHistory;
-        this.sellingHistory = sellingHistory;
+//        this.purchaseHistory = purchaseHistory;
+//        this.sellingHistory = sellingHistory;
     }
 
     public Long getId() {return id;}
@@ -62,13 +63,13 @@ public class User {
 
     public void setEmail(String email) {this.email = email;}
 
-    public List<Transaction> getPurchaseHistory() {return purchaseHistory;}
-
-    public void setPurchaseHistory(List<Transaction> purchaseHistory) {this.purchaseHistory = purchaseHistory;}
-
-    public List<Transaction> getSellingHistory() {return sellingHistory;}
-
-    public void setSellingHistory(List<Transaction> sellingHistory) {this.sellingHistory = sellingHistory;}
+//    public List<Transaction> getPurchaseHistory() {return purchaseHistory;}
+//
+//    public void setPurchaseHistory(List<Transaction> purchaseHistory) {this.purchaseHistory = purchaseHistory;}
+//
+//    public List<Transaction> getSellingHistory() {return sellingHistory;}
+//
+//    public void setSellingHistory(List<Transaction> sellingHistory) {this.sellingHistory = sellingHistory;}
 
     @Override
     public String toString() {
@@ -79,8 +80,8 @@ public class User {
                 ", phoneNumber=" + phoneNumber +
                 ", photoUrl='" + photoUrl + '\'' +
                 ", email='" + email + '\'' +
-                ", purchaseHistory=" + purchaseHistory +
-                ", sellingHistory=" + sellingHistory +
+//                ", purchaseHistory=" + purchaseHistory +
+//                ", sellingHistory=" + sellingHistory +
                 '}';
     }
 }

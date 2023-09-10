@@ -5,11 +5,13 @@ import com.example.projetfilrouge_Spring.repository.TicketRepository;
 import com.example.projetfilrouge_Spring.repository.entity.Ticket;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class TicketService {
+public class
+TicketService {
     private TicketRepository ticketRepository;
     public TicketService(TicketRepository ticketRepository){
         this.ticketRepository = ticketRepository;
@@ -17,7 +19,7 @@ public class TicketService {
 
     public List<TicketDto> fetchAll() {
         List<Ticket> allTickets = ticketRepository.findAll();
-        List<TicketDto> allTicketDto = null;
+        List<TicketDto> allTicketDto = new ArrayList<>();
         for (Ticket ticket: allTickets) {
             TicketDto ticketDto = new TicketDto(Optional.ofNullable(ticket));
             allTicketDto.add(ticketDto);

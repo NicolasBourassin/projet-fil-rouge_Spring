@@ -5,6 +5,7 @@ import com.example.projetfilrouge_Spring.repository.UserRepository;
 import com.example.projetfilrouge_Spring.repository.entity.User;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +17,7 @@ public class UserService {
     }
     public List<UserDto> fetchAll() {
         List<User> allUsers = userRepository.findAll();
-        List<UserDto> allUserDto = null;
+        List<UserDto> allUserDto = new ArrayList<>();
         for (User user: allUsers) {
             UserDto userDto = new UserDto(Optional.ofNullable(user));
             allUserDto.add(userDto);

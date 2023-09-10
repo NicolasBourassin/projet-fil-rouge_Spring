@@ -1,9 +1,8 @@
-package com.example.projetfilrouge_G2;
+package com.example.projetfilrouge_Spring;
 
 
-import com.example.projetfilrouge_G2.controller.model.TicketDto;
-import com.example.projetfilrouge_G2.repository.TicketRepository;
-import com.example.projetfilrouge_G2.repository.entity.Ticket;
+import com.example.projetfilrouge_Spring.repository.TicketRepository;
+import com.example.projetfilrouge_Spring.repository.entity.Ticket;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

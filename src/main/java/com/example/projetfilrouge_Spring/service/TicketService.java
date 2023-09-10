@@ -1,8 +1,8 @@
-package com.example.projetfilrouge_G2.service;
+package com.example.projetfilrouge_Spring.service;
 
-import com.example.projetfilrouge_G2.controller.model.TicketDto;
-import com.example.projetfilrouge_G2.repository.TicketRepository;
-import com.example.projetfilrouge_G2.repository.entity.Ticket;
+import com.example.projetfilrouge_Spring.controller.model.TicketDto;
+import com.example.projetfilrouge_Spring.repository.TicketRepository;
+import com.example.projetfilrouge_Spring.repository.entity.Ticket;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

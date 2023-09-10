@@ -1,8 +1,7 @@
-package com.example.projetfilrouge_G2.controller.api;
+package com.example.projetfilrouge_Spring.controller.api;
 
-import com.example.projetfilrouge_G2.controller.model.TicketDto;
-import com.example.projetfilrouge_G2.repository.entity.Ticket;
-import com.example.projetfilrouge_G2.service.TicketService;
+import com.example.projetfilrouge_Spring.controller.model.TicketDto;
+import com.example.projetfilrouge_Spring.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

@@ -1,7 +1,7 @@
-package com.example.projetfilrouge_G2.controller.model;
+package com.example.projetfilrouge_Spring.controller.model;
 
-import com.example.projetfilrouge_G2.repository.entity.Transaction;
-import com.example.projetfilrouge_G2.repository.entity.User;
+import com.example.projetfilrouge_Spring.repository.entity.Transaction;
+import com.example.projetfilrouge_Spring.repository.entity.User;
 
 import java.util.List;
 import java.util.Optional;

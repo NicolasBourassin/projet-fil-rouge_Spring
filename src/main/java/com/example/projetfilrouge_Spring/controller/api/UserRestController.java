@@ -1,8 +1,7 @@
-package com.example.projetfilrouge_G2.controller.api;
+package com.example.projetfilrouge_Spring.controller.api;
 
-import com.example.projetfilrouge_G2.controller.model.UserDto;
-import com.example.projetfilrouge_G2.repository.entity.User;
-import com.example.projetfilrouge_G2.service.UserService;
+import com.example.projetfilrouge_Spring.controller.model.UserDto;
+import com.example.projetfilrouge_Spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

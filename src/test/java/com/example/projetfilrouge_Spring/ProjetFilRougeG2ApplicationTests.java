@@ -1,4 +1,4 @@
-package com.example.projetfilrouge_G2;
+package com.example.projetfilrouge_Spring;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

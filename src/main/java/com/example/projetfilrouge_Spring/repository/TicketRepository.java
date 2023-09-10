@@ -1,8 +1,7 @@
-package com.example.projetfilrouge_G2.repository;
+package com.example.projetfilrouge_Spring.repository;
 
 
-import com.example.projetfilrouge_G2.controller.model.TicketDto;
-import com.example.projetfilrouge_G2.repository.entity.Ticket;
+import com.example.projetfilrouge_Spring.repository.entity.Ticket;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

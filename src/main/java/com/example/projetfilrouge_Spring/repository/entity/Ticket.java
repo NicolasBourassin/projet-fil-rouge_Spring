@@ -1,4 +1,4 @@
-package com.example.projetfilrouge_G2.repository.entity;
+package com.example.projetfilrouge_Spring.repository.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;

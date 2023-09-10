@@ -1,7 +1,7 @@
-package com.example.projetfilrouge_G2;
+package com.example.projetfilrouge_Spring;
 
-import com.example.projetfilrouge_G2.service.TicketService;
-import com.example.projetfilrouge_G2.service.UserService;
+import com.example.projetfilrouge_Spring.service.TicketService;
+import com.example.projetfilrouge_Spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

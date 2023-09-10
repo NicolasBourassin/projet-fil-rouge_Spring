@@ -1,6 +1,6 @@
-package com.example.projetfilrouge_G2.controller.model;
+package com.example.projetfilrouge_Spring.controller.model;
 
-import com.example.projetfilrouge_G2.repository.entity.Ticket;
+import com.example.projetfilrouge_Spring.repository.entity.Ticket;
 
 import java.time.LocalDate;
 import java.util.Optional;

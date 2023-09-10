@@ -4,7 +4,6 @@ import com.example.projetfilrouge_G2.repository.UserRepository;
 import com.example.projetfilrouge_G2.repository.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 

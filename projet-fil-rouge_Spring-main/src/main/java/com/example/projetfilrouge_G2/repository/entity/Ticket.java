@@ -20,6 +20,9 @@ public class Ticket {
     @Column(name = "price")
     private Float price;
 
+    @OneToOne(mappedBy = "ticket")
+    private Transaction transaction;
+
     //ajouter cardinalité( one to one ou Many to one)
     public Ticket() {}
 
@@ -35,6 +38,9 @@ public class Ticket {
         this.event = event;
         this.price = price;
     }
+
+    public Ticket(Long id, String event, Float price) {}
+
 
     public Long getId() {
         return id;

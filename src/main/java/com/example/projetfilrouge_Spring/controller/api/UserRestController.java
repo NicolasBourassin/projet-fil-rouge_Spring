@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -21,10 +20,10 @@ public class UserRestController {
     @GetMapping("/users")
     public List<UserDto> getAll()
     {
-        if (userService.fetchAll().isEmpty()){
+        if (userService.getAll().isEmpty()){
             throw new ResponseStatusException(HttpStatus.NO_CONTENT);
         }
-        return userService.fetchAll();
+        return userService.getAll();
     }
 
     @GetMapping("/users/")
@@ -36,8 +35,8 @@ public class UserRestController {
         return userService.findByUsernameIsContainingIgnoreCase(username);
     }
     @GetMapping("/users/{id}")
-    public Optional<UserDto> getById(@PathVariable Long id) {
-        if (userService.findById(id).isEmpty()){
+    public UserDto getById(@PathVariable Long id) {
+        if (userService.findById(id) == null){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         return userService.findById(id);
@@ -46,21 +45,20 @@ public class UserRestController {
     @PostMapping("/users")
     @ResponseStatus(HttpStatus.CREATED)
     public void add(@RequestBody UserDto userDto) {
-        userService.save(new UserDto(userDto.getUsername(), userDto.getPassword(),
-                userDto.getPhoneNumber(), userDto.getPhotoUrl(), userDto.getEmail(), userDto.getPurchaseHistory(), userDto.getSellingHistory()));
+        userService.create(new UserDto(userDto.getUsername(), userDto.getPassword(),
+                userDto.getPhoneNumber(), userDto.getPhotoUrl(), userDto.getEmail()));
     }
 
     @PutMapping("/users/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void updateById(@PathVariable Long id, @RequestBody UserDto userDto){
-        userService.save(new UserDto(id, userDto.getUsername(), userDto.getPassword(),
-                userDto.getPhoneNumber(), userDto.getPhotoUrl(), userDto.getEmail(), userDto.getPurchaseHistory(), userDto.getSellingHistory()));
+    public UserDto updateById(@PathVariable Long id, @RequestBody UserDto updatedUserDto){
+        return userService.update(id, updatedUserDto);
     }
 
     @DeleteMapping("/users/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void deleteById(@PathVariable Long id) {
-        if (userService.findById(id).isEmpty()){
+        if (userService.findById(id)==null){
             throw new ResponseStatusException(HttpStatus.NO_CONTENT);
         }
         userService.deleteById(id);

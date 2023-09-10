@@ -39,6 +39,8 @@ public class User {
 //        this.sellingHistory = sellingHistory;
     }
 
+    public User(String username, String password, Long phoneNumber, String photoUrl, String email) {}
+
     public Long getId() {return id;}
 
     public void setId(Long id) {this.id = id;}

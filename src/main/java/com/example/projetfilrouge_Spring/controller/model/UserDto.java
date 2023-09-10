@@ -2,26 +2,34 @@ package com.example.projetfilrouge_Spring.controller.model;
 
 import com.example.projetfilrouge_Spring.repository.entity.Transaction;
 import com.example.projetfilrouge_Spring.repository.entity.User;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 import java.util.Optional;
 
 public class UserDto {
+
+    @JsonProperty("id")
     private Long id;
 
+    @JsonProperty("username")
     private String username;
 
+    @JsonProperty("password")
     private String password;
 
+    @JsonProperty("phoneNumber")
     private Long phoneNumber;
 
+    @JsonProperty("photoUrl")
     private String photoUrl;
 
+    @JsonProperty("email")
     private String email;
 
-    private List<Transaction> purchaseHistory;
-
-    private List<Transaction> sellingHistory;
+//    private List<Transaction> purchaseHistory;
+//
+//    private List<Transaction> sellingHistory;
     public UserDto(Optional<User> user) {
         //FIXME constructeur temporaire, à supprimer si conflit !
     }
@@ -33,8 +41,8 @@ public class UserDto {
         this.phoneNumber = phoneNumber;
         this.photoUrl = photoUrl;
         this.email = email;
-        this.purchaseHistory = purchaseHistory;
-        this.sellingHistory = sellingHistory;
+//        this.purchaseHistory = purchaseHistory;
+//        this.sellingHistory = sellingHistory;
     }
 
     public UserDto(String username, String password, Long phoneNumber, String photoUrl, String email, List<Transaction> purchaseHistory, List<Transaction> sellingHistory) {
@@ -43,9 +51,13 @@ public class UserDto {
         this.phoneNumber = phoneNumber;
         this.photoUrl = photoUrl;
         this.email = email;
-        this.purchaseHistory = purchaseHistory;
-        this.sellingHistory = sellingHistory;
+//        this.purchaseHistory = purchaseHistory;
+//        this.sellingHistory = sellingHistory;
     }
+
+    public UserDto(Long id, String username, String password, Long phoneNumber, String photoUrl, String email) {}
+
+    public UserDto(String username, String password, Long phoneNumber, String photoUrl, String email) {}
 
     public Long getId() {
         return id;
@@ -95,21 +107,21 @@ public class UserDto {
         this.email = email;
     }
 
-    public List<Transaction> getPurchaseHistory() {
-        return purchaseHistory;
-    }
-
-    public void setPurchaseHistory(List<Transaction> purchaseHistory) {
-        this.purchaseHistory = purchaseHistory;
-    }
-
-    public List<Transaction> getSellingHistory() {
-        return sellingHistory;
-    }
-
-    public void setSellingHistory(List<Transaction> sellingHistory) {
-        this.sellingHistory = sellingHistory;
-    }
+//    public List<Transaction> getPurchaseHistory() {
+//        return purchaseHistory;
+//    }
+//
+//    public void setPurchaseHistory(List<Transaction> purchaseHistory) {
+//        this.purchaseHistory = purchaseHistory;
+//    }
+//
+//    public List<Transaction> getSellingHistory() {
+//        return sellingHistory;
+//    }
+//
+//    public void setSellingHistory(List<Transaction> sellingHistory) {
+//        this.sellingHistory = sellingHistory;
+//    }
 
     @Override
     public String toString() {
@@ -120,8 +132,8 @@ public class UserDto {
                 ", phoneNumber=" + phoneNumber +
                 ", photoUrl='" + photoUrl + '\'' +
                 ", email='" + email + '\'' +
-                ", purchaseHistory=" + purchaseHistory +
-                ", sellingHistory=" + sellingHistory +
+//                ", purchaseHistory=" + purchaseHistory +
+//                ", sellingHistory=" + sellingHistory +
                 '}';
     }
 }

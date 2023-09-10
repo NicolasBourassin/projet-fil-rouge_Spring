@@ -1,6 +1,7 @@
 package com.example.projetfilrouge_G2;
 
 
+import com.example.projetfilrouge_G2.controller.model.TicketDto;
 import com.example.projetfilrouge_G2.repository.TicketRepository;
 import com.example.projetfilrouge_G2.repository.entity.Ticket;
 import org.junit.jupiter.api.Test;

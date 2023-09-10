@@ -20,8 +20,9 @@ public class Ticket {
     @Column(name = "price")
     private Float price;
 
-
+    //FIXME cardinalités !
 //    @OneToOne(mappedBy = "ticket")
+//    @Column(name = "transaction")
 //    private Transaction transaction;
 
     //ajouter cardinalité( one to one ou Many to one)
@@ -33,6 +34,12 @@ public class Ticket {
         this.event = event;
         this.price = price;
     }
+
+    //FIXME : temporaire juste pour tester code avec transaction sans cardinalité
+//    public Ticket(Long id, Transaction transaction) {
+//        this.id = id;
+//        this.transaction=transaction;
+//    }
 
     public Ticket(LocalDate date, String event, Float price) {
         this.date = date;

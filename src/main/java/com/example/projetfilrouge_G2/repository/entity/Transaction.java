@@ -14,11 +14,9 @@ public class Transaction {
     @Column(name ="completed")
     private Boolean completed;
 
-    @Column(name ="ticket")
-    private Ticket ticket;
-//    @OneToOne(mappedBy = "transaction")
+//    @Column(name ="ticket")
+////    @OneToOne(mappedBy = "transaction")
 //    private Ticket ticket;
-
     @Column(name ="date")
     private LocalDate date;
 
@@ -33,7 +31,7 @@ public class Transaction {
 
     public Transaction(Boolean completed, Ticket ticket, LocalDate date) {
         this.completed = completed;
-        this.ticket = ticket;
+//        this.ticket = ticket;
         this.date = date;
     }
 
@@ -49,9 +47,9 @@ public class Transaction {
 
     public void setCompleted(Boolean completed) {this.completed = completed;}
 
-    public Ticket getTicket() {return ticket;}
-
-    public void setTicket(Ticket ticket) {this.ticket = ticket;}
+//    public Ticket getTicket() {return ticket;}
+//
+//    public void setTicket(Ticket ticket) {this.ticket = ticket;}
 
     public LocalDate getDate() {return date;}
 
@@ -66,9 +64,8 @@ public class Transaction {
         return "Transaction{" +
                 "id=" + id +
                 ", completed=" + completed +
-                ", ticket=" + ticket +
-                ", date=" + date +
 //                ", ticket=" + ticket +
+                ", date=" + date +
                 ", date=" + date +
                 ", rating=" + rating +
                 '}';

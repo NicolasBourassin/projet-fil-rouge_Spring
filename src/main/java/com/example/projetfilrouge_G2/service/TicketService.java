@@ -44,7 +44,13 @@ public class TicketService {
 
 
     public List<TicketDto> findTicketByEventContainingIgnoreCase(String event) {
-        return ticketRepository.findTicketByEventContainingIgnoreCase(event);
+        List<Ticket> result = ticketRepository.findTicketByEventContainingIgnoreCase(event);
+        List<TicketDto> resultTicketDto = null;
+        for (Ticket ticket: result) {
+            TicketDto ticketDto = new TicketDto(Optional.ofNullable(ticket));
+            resultTicketDto.add(ticketDto);
+        }
+        return resultTicketDto;
     }
 
     public Optional<TicketDto> findById(Long id) {

@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name="tickets")
+@Table(name="ticket")
 public class Ticket {
 
     @Id
@@ -23,22 +23,50 @@ public class Ticket {
     //ajouter cardinalité( one to one ou Many to one
     public Ticket() {}
 
-    public Ticket(LocalDate date, String event) {
+    public Ticket(Long id, LocalDate date, String event, Float price) {
+        this.id = id;
         this.date = date;
+        this.event = event;
+        this.price = price;
+    }
+
+    public Ticket(LocalDate date, String event, Float price) {
+        this.date = date;
+        this.event = event;
+        this.price = price;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public String getEvent() {
+        return event;
+    }
+
+    public void setEvent(String event) {
         this.event = event;
     }
 
-    public LocalDate getDate() {return date;}
+    public Float getPrice() {
+        return price;
+    }
 
-    public void setDate(LocalDate date) {this.date = date;}
-
-    public String getEvent() {return event;}
-
-    public void setEvent(String event) {this.event = event;}
-
-    public Long getId() {return id;}
-
-    public void setId(Long id) {this.id = id;}
+    public void setPrice(Float price) {
+        this.price = price;
+    }
 
     @Override
     public String toString() {
@@ -46,6 +74,7 @@ public class Ticket {
                 "id=" + id +
                 ", date=" + date +
                 ", event='" + event + '\'' +
+                ", price=" + price +
                 '}';
     }
 }

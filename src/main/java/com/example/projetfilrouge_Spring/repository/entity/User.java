@@ -20,13 +20,22 @@ public class User {
     private String photoUrl;
     @Column(name="email")
     private String email;
-//    @OneToMany(mappedBy = "user")
-    
+
+////  @OneToMany(mappedBy = "user")
 //    private List<Transaction> purchaseHistory;
-////    @OneToMany(mappedBy = "user")
+//////@OneToMany(mappedBy = "user")
 //    private List<Transaction> sellingHistory;
 
     public User() {}
+
+    public User(Long id, String username, String password, Long phoneNumber, String photoUrl, String email) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.photoUrl = photoUrl;
+        this.email = email;
+    }
 
     public User(String username, String password, Long phoneNumber, String photoUrl, String email, List<Transaction> purchaseHistory, List<Transaction> sellingHistory)
     {
@@ -38,6 +47,8 @@ public class User {
 //        this.purchaseHistory = purchaseHistory;
 //        this.sellingHistory = sellingHistory;
     }
+
+    public User(String username, String password, Long phoneNumber, String photoUrl, String email) {}
 
     public Long getId() {return id;}
 

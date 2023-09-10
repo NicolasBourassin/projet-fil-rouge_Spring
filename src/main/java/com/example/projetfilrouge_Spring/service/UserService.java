@@ -36,9 +36,7 @@ public class UserService {
                 userDto.getPassword(),
                 userDto.getPhoneNumber(),
                 userDto.getPhotoUrl(),
-                userDto.getEmail(),
-                userDto.getPurchaseHistory(),
-                userDto.getSellingHistory());
+                userDto.getEmail());
         userRepository.save(userToAdd);
     }
 

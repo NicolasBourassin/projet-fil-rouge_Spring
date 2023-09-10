@@ -22,41 +22,45 @@ public class UserDto {
     private List<Transaction> purchaseHistory;
 
     private List<Transaction> sellingHistory;
+
+    private User user;
     public UserDto(Optional<User> user) {
         //FIXME constructeur temporaire, à supprimer si conflit !
     }
 
     public UserDto(Long id, String username, String password, Long phoneNumber, String photoUrl, String email, List<Transaction> purchaseHistory, List<Transaction> sellingHistory) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.phoneNumber = phoneNumber;
-        this.photoUrl = photoUrl;
-        this.email = email;
-        this.purchaseHistory = purchaseHistory;
-        this.sellingHistory = sellingHistory;
+        this.id = user.getId();
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        this.phoneNumber = user.getPhoneNumber();
+        this.photoUrl = user.getPhotoUrl();
+        this.email = user.getEmail();
+//        this.purchaseHistory = user.getPurchaseHistory();
+//        this.sellingHistory = user.getSellingHistory();
     }
 
     public UserDto(String username, String password, Long phoneNumber, String photoUrl, String email, List<Transaction> purchaseHistory, List<Transaction> sellingHistory) {
-        this.username = username;
-        this.password = password;
-        this.phoneNumber = phoneNumber;
-        this.photoUrl = photoUrl;
-        this.email = email;
-        this.purchaseHistory = purchaseHistory;
-        this.sellingHistory = sellingHistory;
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        this.phoneNumber = user.getPhoneNumber();
+        this.photoUrl = user.getPhotoUrl();
+        this.email = user.getEmail();
+//        this.purchaseHistory = user.getPurchaseHistory();
+//        this.sellingHistory = user.getSellingHistory();
     }
+
+    public UserDto(String username, String password, Long phoneNumber, String photoUrl, String email) {}
+
+    public UserDto(Long id, String username, String password, Long phoneNumber, String photoUrl, String email) {}
 
     public Long getId() {
-        return id;
+        return user.getId();
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public void setId(Long id) {this.id = id;}
 
     public String getUsername() {
-        return username;
+        return user.getUsername();
     }
 
     public void setUsername(String username) {
@@ -64,7 +68,7 @@ public class UserDto {
     }
 
     public String getPassword() {
-        return password;
+        return user.getPassword();
     }
 
     public void setPassword(String password) {
@@ -72,7 +76,7 @@ public class UserDto {
     }
 
     public Long getPhoneNumber() {
-        return phoneNumber;
+        return user.getPhoneNumber();
     }
 
     public void setPhoneNumber(Long phoneNumber) {
@@ -80,7 +84,7 @@ public class UserDto {
     }
 
     public String getPhotoUrl() {
-        return photoUrl;
+        return user.getPhotoUrl();
     }
 
     public void setPhotoUrl(String photoUrl) {
@@ -88,28 +92,26 @@ public class UserDto {
     }
 
     public String getEmail() {
-        return email;
+        return user.getEmail();
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public List<Transaction> getPurchaseHistory() {
-        return purchaseHistory;
-    }
-
-    public void setPurchaseHistory(List<Transaction> purchaseHistory) {
-        this.purchaseHistory = purchaseHistory;
-    }
-
-    public List<Transaction> getSellingHistory() {
-        return sellingHistory;
-    }
-
-    public void setSellingHistory(List<Transaction> sellingHistory) {
-        this.sellingHistory = sellingHistory;
-    }
+//    public List<Transaction> getPurchaseHistory() {
+//        return user.getPurchaseHistory();
+//    }
+//
+//    public void setPurchaseHistory(List<Transaction> purchaseHistory) {
+//        this.purchaseHistory = purchaseHistory;
+//    }
+//
+//    public List<Transaction> getSellingHistory() {return user.getSellingHistory();}
+//
+//    public void setSellingHistory(List<Transaction> sellingHistory) {
+//        this.sellingHistory = sellingHistory;
+//    }
 
     @Override
     public String toString() {
@@ -120,8 +122,8 @@ public class UserDto {
                 ", phoneNumber=" + phoneNumber +
                 ", photoUrl='" + photoUrl + '\'' +
                 ", email='" + email + '\'' +
-                ", purchaseHistory=" + purchaseHistory +
-                ", sellingHistory=" + sellingHistory +
+//                ", purchaseHistory=" + purchaseHistory +
+//                ", sellingHistory=" + sellingHistory +
                 '}';
     }
 }

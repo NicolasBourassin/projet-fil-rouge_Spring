@@ -47,7 +47,7 @@ TicketService {
 
     public List<TicketDto> findTicketByEventContainingIgnoreCase(String event) {
         List<Ticket> result = ticketRepository.findTicketByEventContainingIgnoreCase(event);
-        List<TicketDto> resultTicketDto = null;
+        List<TicketDto> resultTicketDto = new ArrayList<>();
         for (Ticket ticket: result) {
             TicketDto ticketDto = new TicketDto(Optional.ofNullable(ticket));
             resultTicketDto.add(ticketDto);

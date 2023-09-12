@@ -23,7 +23,6 @@ public class UserDto {
 
     private List<Transaction> sellingHistory;
     public UserDto(Optional<User> user) {
-        //FIXME constructeur temporaire, à supprimer si conflit !
     }
 
     public UserDto(Long id, String username, String password, Long phoneNumber, String photoUrl, String email, List<Transaction> purchaseHistory, List<Transaction> sellingHistory) {

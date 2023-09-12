@@ -15,8 +15,10 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class UserRestController {
 
-    @Autowired
     UserService userService;
+    public UserRestController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/users")
     public List<UserDto> getAll()

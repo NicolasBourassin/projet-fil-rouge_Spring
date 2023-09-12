@@ -15,7 +15,6 @@ public class TicketDto {
     private Float price;
 
     public TicketDto(Optional<Ticket> ticket) {
-        //FIXME constructeur temporaire, à supprimer si conflit !
         this.id = ticket.get().getId();
         this.date = ticket.get().getDate();
         this.event = ticket.get().getEvent();

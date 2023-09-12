@@ -16,8 +16,11 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class TicketRestController {
 
-    @Autowired
     TicketService ticketService;
+
+    public TicketRestController(TicketService ticketService) {
+        this.ticketService = ticketService;
+    }
 
     @GetMapping("/tickets")
     public List<TicketDto> getAll()

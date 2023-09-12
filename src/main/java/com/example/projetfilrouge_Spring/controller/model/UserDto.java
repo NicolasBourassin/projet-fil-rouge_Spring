@@ -46,6 +46,14 @@ public class UserDto {
         this.sellingHistory = sellingHistory;
     }
 
+    public UserDto(String username, String password, Long phoneNumber, String photoUrl, String email) {
+        this.username = username;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.photoUrl = photoUrl;
+        this.email = email;
+    }
+
     public Long getId() {
         return id;
     }

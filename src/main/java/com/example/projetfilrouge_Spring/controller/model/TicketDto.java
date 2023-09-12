@@ -21,6 +21,12 @@ public class TicketDto {
         this.price = ticket.get().getPrice();
     }
 
+    public TicketDto(LocalDate date, String event, Float price) {
+        this.date = date;
+        this.event = event;
+        this.price = price;
+    }
+
     public Long getId() {
         return id;
     }

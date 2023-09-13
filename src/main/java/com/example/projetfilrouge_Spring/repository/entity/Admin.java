@@ -10,16 +10,16 @@ public class Admin {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name ="login")
-    private String login;
+    @Column(name ="username")
+    private String username;
 
     @Column(name ="password")
     private String password;
 
     public Admin(){}
 
-    public Admin(String login, String password) {
-        this.login = login;
+    public Admin(String username, String password) {
+        this.username = username;
         this.password = password;
     }
 
@@ -31,12 +31,12 @@ public class Admin {
         this.id = id;
     }
 
-    public String getLogin() {
-        return login;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUsername(String login) {
+        this.username = login;
     }
 
     public String getPassword() {
@@ -51,7 +51,7 @@ public class Admin {
     public String toString() {
         return "Admin{" +
                 "id=" + id +
-                ", login='" + login + '\'' +
+                ", login='" + username + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }

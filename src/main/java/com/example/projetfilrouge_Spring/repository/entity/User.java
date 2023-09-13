@@ -20,6 +20,8 @@ public class User {
     private String photoUrl;
     @Column(name="email")
     private String email;
+
+    //TODO ajout role
     @OneToMany(mappedBy = "user")
     private List<Transaction> purchaseHistory;
     @OneToMany(mappedBy = "user")

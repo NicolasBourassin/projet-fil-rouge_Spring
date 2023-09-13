@@ -2,8 +2,8 @@ package com.example.projetfilrouge_Spring.controller.api;
 
 import com.example.projetfilrouge_Spring.controller.model.TicketDto;
 import com.example.projetfilrouge_Spring.service.TicketService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -25,10 +25,10 @@ public class TicketRestController {
     @GetMapping("/tickets")
     public List<TicketDto> getAll()
     {
-        if (ticketService.fetchAll().isEmpty()){
+        if (ticketService.findAll().isEmpty()){
             throw new ResponseStatusException(HttpStatus.NO_CONTENT);
         }
-        return ticketService.fetchAll();
+        return ticketService.findAll();
     }
 
     @GetMapping("/tickets/")
@@ -55,17 +55,33 @@ public class TicketRestController {
 
     @PutMapping("/tickets/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void updateById(@PathVariable Long id, @RequestBody TicketDto ticketDto){
-        ticketService.save(ticketDto);
+    public ResponseEntity<TicketDto> updateById(@PathVariable Long id, @RequestBody TicketDto ticketDto){
+        Optional<TicketDto> updateTarget = ticketService.findById(id);
+        if (updateTarget.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        TicketDto updateVersion = updateTarget.get();
+
+        updateVersion.setDate(ticketDto.getDate());
+        updateVersion.setEvent(ticketDto.getEvent());
+        updateVersion.setPrice(ticketDto.getPrice());
+
+        //TODO TEMP
+        System.out.println("TEMP TicketRestController : TicketDto = " + updateVersion.toString() );
+        ticketService.update(id, updateVersion);
+        return ResponseEntity.status(HttpStatus.OK).body(updateVersion);
     }
 
+
     @DeleteMapping("/tickets/{id}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    public void deleteById(@PathVariable Long id) {
-        if (ticketService.findById(id).isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NO_CONTENT);
+    public ResponseEntity<HttpStatus> deleteById(@PathVariable Long id) {
+        Optional<TicketDto> ticketDto = ticketService.findById(id);
+        if (ticketDto.isPresent()){
+            ticketService.deleteById(id);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-        ticketService.deleteById(id);
     }
 
 }

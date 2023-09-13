@@ -66,7 +66,7 @@ public class FilRougeApplication implements CommandLineRunner {
 
 		// //TEST UPDATE
 		UserDto user2Updated = new UserDto("testUser", "UPDATEDpwd", "UPDATEDnum", "UPDATEDphoto", "UPDATEDmail");
-		TicketDto ticket2Updated = new TicketDto(LocalDate.parse("1001-01-01"), "UPDATED EVENT", 30.30F);
+		TicketDto ticket2Updated = new TicketDto(LocalDate.parse("2020-02-02"), "UPDATED EVENT", 22.22F);
 
 		userRestController.updateById(2L, user2Updated);
 		ticketRestController.updateById(2L, ticket2Updated);

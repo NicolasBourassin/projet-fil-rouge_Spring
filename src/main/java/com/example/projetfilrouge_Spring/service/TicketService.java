@@ -3,8 +3,11 @@ package com.example.projetfilrouge_Spring.service;
 import com.example.projetfilrouge_Spring.controller.model.TicketDto;
 import com.example.projetfilrouge_Spring.repository.TicketRepository;
 import com.example.projetfilrouge_Spring.repository.entity.Ticket;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -17,7 +20,7 @@ TicketService {
         this.ticketRepository = ticketRepository;
     }
 
-    public List<TicketDto> fetchAll() {
+    public List<TicketDto> findAll() {
         List<Ticket> allTickets = ticketRepository.findAll();
         List<TicketDto> allTicketDto = new ArrayList<>();
         for (Ticket ticket: allTickets) {
@@ -27,23 +30,12 @@ TicketService {
         return allTicketDto;
     }
 
-    public TicketDto fetchById(Long id) throws Exception {
-        Optional<Ticket> ticket = ticketRepository.findById(id);
-        TicketDto ticketDto = new TicketDto(ticket);
-        return ticketDto;
-    }
-
     public void save(TicketDto ticketDto) {
         Ticket ticketToAdd = new Ticket(ticketDto.getDate(),
                 ticketDto.getEvent(),
                 ticketDto.getPrice());
         ticketRepository.save(ticketToAdd);
     }
-
-    public void remove(Long id) {
-        ticketRepository.deleteById(id);
-    }
-
 
     public List<TicketDto> findTicketByEventContainingIgnoreCase(String event) {
         List<Ticket> result = ticketRepository.findTicketByEventContainingIgnoreCase(event);
@@ -60,8 +52,34 @@ TicketService {
         return Optional.of(ticketDto);
     }
 
+    @Transactional
+    public void update(Long id, TicketDto ticketDto) {
+    // Note : probably not necessary because it's also checked in RestController method
+        Ticket ticketToUpdate = ticketRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Ticket with id " + id + " not found"));
+
+        // verification for each attribute that a "null" value would not erase the current value
+        // temporary variables to avoid confusion between getters & setters
+        LocalDate date = ticketDto.getDate();
+        String event = ticketDto.getEvent();
+        Float price = ticketDto.getPrice();
+        if(date!=null){
+            ticketToUpdate.setDate(date);
+        }
+        if(event!=null){
+            ticketToUpdate.setEvent(event);
+        }
+        if(price!=null){
+            ticketToUpdate.setPrice(price);
+        }
+//        System.out.println("TEMP TicketService : ticketDto = " + ticketDto.toString() );
+//        System.out.println("TEMP TicketService : ticketToUpdate = " + ticketToUpdate.toString() );
+        ticketRepository.save(ticketToUpdate);
+    }
 
     public void deleteById(Long id) {
         ticketRepository.deleteById(id);
     }
+
+
 }

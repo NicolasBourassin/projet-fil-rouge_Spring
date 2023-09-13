@@ -18,7 +18,7 @@ public class UserService {
     public UserService(UserRepository userRepository){
         this.userRepository = userRepository;
     }
-    public List<UserDto> fetchAll() {
+    public List<UserDto> findAll() {
         List<User> allUsers = userRepository.findAll();
         List<UserDto> allUserDto = new ArrayList<>();
         for (User user: allUsers) {
@@ -27,13 +27,6 @@ public class UserService {
         }
         return allUserDto;
     }
-
-    public UserDto fetchById(Long id) throws Exception {
-        Optional<User> user = userRepository.findById(id);
-        UserDto userDto = new UserDto(user);
-        return userDto;
-    }
-
     public void save(UserDto userDto) {
 
         User userToAdd = new User(userDto.getUsername(),
@@ -44,15 +37,22 @@ public class UserService {
         userRepository.save(userToAdd);
     }
 
-//    public void update(Long id, UserDto userDto) {
-//        User userToUpdate = userRepository.getById(id);
-//        userToUpdate.setId(id);
-//        userToUpdate.setPassword(userDto.getPassword());
-//        userToUpdate.setPhoneNumber(userDto.getPhoneNumber());
-//        userToUpdate.setPhotoUrl(userDto.getPhotoUrl());
-//        userToUpdate.setEmail(userDto.getEmail());
-//        userRepository.save(userToUpdate);
-//    }
+    public List<UserDto> findByUsernameIsContainingIgnoreCase(String username) {
+        return userRepository.findByUsernameIsContainingIgnoreCase(username);
+    }
+
+    public UserDto findByUsername(String username){
+        return userRepository.findByUsername(username);
+    };
+
+    public Optional<UserDto> findById(Long id) {
+        UserDto userDto = new UserDto(userRepository.findById(id));
+        return Optional.of(userDto);
+    }
+
+    public void deleteById(Long id) {
+        userRepository.deleteById(id);
+    }
 
     @Transactional
     public void update(Long id, UserDto userDto) {
@@ -84,26 +84,5 @@ public class UserService {
 //        System.out.println("TEMP UserService : userToUpdate = " + userToUpdate.toString() );
 
         userRepository.save(userToUpdate);
-    }
-
-    public void remove(Long id) {
-        userRepository.deleteById(id);
-    }
-
-    public List<UserDto> findByUsernameIsContainingIgnoreCase(String username) {
-        return userRepository.findByUsernameIsContainingIgnoreCase(username);
-    }
-
-    public UserDto findByUsername(String username){
-        return userRepository.findByUsername(username);
-    };
-
-    public Optional<UserDto> findById(Long id) {
-        UserDto userDto = new UserDto(userRepository.findById(id));
-        return Optional.of(userDto);
-    }
-
-    public void deleteById(Long id) {
-        userRepository.deleteById(id);
     }
 }

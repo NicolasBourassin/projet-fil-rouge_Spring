@@ -24,10 +24,10 @@ public class UserRestController {
     @GetMapping("/users")
     public List<UserDto> getAll()
     {
-        if (userService.fetchAll().isEmpty()){
+        if (userService.findAll().isEmpty()){
             throw new ResponseStatusException(HttpStatus.NO_CONTENT);
         }
-        return userService.fetchAll();
+        return userService.findAll();
     }
 
     @GetMapping("/users/")
@@ -71,14 +71,11 @@ public class UserRestController {
         //TODO TEMP
         System.out.println("TEMP UserRestController : UserDto = " + updateVersion.toString() );
         userService.update(id, updateVersion);
-//        userService.save(new UserDto(id, userDto.getUsername(), userDto.getPassword(),
-//                userDto.getPhoneNumber(), userDto.getPhotoUrl(), userDto.getEmail()));
         return ResponseEntity.status(HttpStatus.OK).body(updateVersion);
     }
 
     @DeleteMapping("/users/{id}")
     public ResponseEntity<HttpStatus> deleteById(@PathVariable("id") Long id) {
-
         Optional<UserDto> userDto = userService.findById(id);
         if (userDto.isPresent()) {
             userService.deleteById(id);

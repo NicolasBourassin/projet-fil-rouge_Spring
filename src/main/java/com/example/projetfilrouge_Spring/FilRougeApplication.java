@@ -28,6 +28,15 @@ public class FilRougeApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+
+		// AJOUT  : OK via RestController for User
+		// DELETE : OK via RestController for User
+		// TODO UPDATE :
+
+		// AJOUT  : OK via RestController for Ticket
+		// DELETE : OK via RestController for Ticket
+		// TODO UPDATE :
+
 		UserDto user1 = new UserDto("HedyLamarr", "gps","010203040506","https://commons.wikimedia.org/wiki/File:Hedy_Lamarr_in_The_Heavenly_Body_1944.jpg?uselang=fr","notamail@null.com");
 		TicketDto ticket1 = new TicketDto(LocalDate.parse("2024-02-24"), "EVENT", 30.30F);
 
@@ -40,8 +49,9 @@ public class FilRougeApplication implements CommandLineRunner {
 		userRestController.add(user2);
 		ticketRestController.add(ticket2);
 
-		// AJOUT OK via RestController
-//		user2 = userRestController.getByUsername("testsuppr").get(0); //to update the id of user2
+		userRestController.deleteById(2L);
+		ticketRestController.deleteById(2L);
+
 
 
 	}

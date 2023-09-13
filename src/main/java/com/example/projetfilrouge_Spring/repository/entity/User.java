@@ -10,7 +10,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name ="username")
+    @Column(name ="username", unique = true)
     private String username;
     @Column(name = "password")
     private String password;
@@ -20,10 +20,9 @@ public class User {
     private String photoUrl;
     @Column(name="email")
     private String email;
-//    @OneToMany(mappedBy = "user")
-    
+//    @OneToMany(mappedBy = "user";
 //    private List<Transaction> purchaseHistory;
-////    @OneToMany(mappedBy = "user")
+//    @OneToMany(mappedBy = "user")
 //    private List<Transaction> sellingHistory;
 
     public User() {}

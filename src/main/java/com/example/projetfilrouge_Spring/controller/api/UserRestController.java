@@ -49,14 +49,16 @@ public class UserRestController {
     @ResponseStatus(HttpStatus.CREATED)
     public void add(@RequestBody UserDto userDto) {
         userService.save(new UserDto(userDto.getUsername(), userDto.getPassword(),
-                userDto.getPhoneNumber(), userDto.getPhotoUrl(), userDto.getEmail(), userDto.getPurchaseHistory(), userDto.getSellingHistory()));
+                userDto.getPhoneNumber(), userDto.getPhotoUrl(), userDto.getEmail(),
+                userDto.getRoleList(), userDto.getPurchaseHistory(), userDto.getSellingHistory()));
     }
 
     @PutMapping("/users/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void updateById(@PathVariable Long id, @RequestBody UserDto userDto){
         userService.save(new UserDto(id, userDto.getUsername(), userDto.getPassword(),
-                userDto.getPhoneNumber(), userDto.getPhotoUrl(), userDto.getEmail(), userDto.getPurchaseHistory(), userDto.getSellingHistory()));
+                userDto.getPhoneNumber(), userDto.getPhotoUrl(), userDto.getEmail(),
+                userDto.getRoleList(), userDto.getPurchaseHistory(), userDto.getSellingHistory()));
     }
 
     @DeleteMapping("/users/{id}")

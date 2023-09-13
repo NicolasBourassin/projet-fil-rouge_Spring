@@ -43,7 +43,25 @@ public class User {
         this.sellingHistory = sellingHistory;
     }
 
-    public User(String username, String password, String phoneNumber, String photoUrl, String email, List<Transaction> purchaseHistory, List<Transaction> sellingHistory) {
+    public User(Long id, String username, String password, String phoneNumber, String photoUrl, String email,
+                List<Role> roleList, List<Transaction> purchaseHistory, List<Transaction> sellingHistory) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.photoUrl = photoUrl;
+        this.email = email;
+        this.roleList = roleList;
+        this.purchaseHistory = purchaseHistory;
+        this.sellingHistory = sellingHistory;
+    }
+
+    public User(String username, String password, String phoneNumber, String photoUrl, String email) {
+        this.username = username;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.photoUrl = photoUrl;
+        this.email = email;
     }
 
     public Long getId() {return id;}

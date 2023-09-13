@@ -1,6 +1,11 @@
 package com.example.projetfilrouge_Spring.repository.entity;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -12,7 +17,6 @@ public class User {
     private Long id;
 
     @Column(name ="username",unique = true)
-
     private String username;
     @Column(name = "password",unique = true)
     private String password;
@@ -45,7 +49,6 @@ public class User {
 
     public User(String username, String password, String phoneNumber, String photoUrl, String email, List<Transaction> purchaseHistory, List<Transaction> sellingHistory) {
     }
-
     public Long getId() {return id;}
 
     public void setId(Long id) {this.id = id;}
@@ -85,16 +88,16 @@ public class User {
     public List<Transaction> getSellingHistory() {return sellingHistory;}
 
     public void setSellingHistory(List<Transaction> sellingHistory) {this.sellingHistory = sellingHistory;}
-
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", phoneNumber=" + phoneNumber +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 ", photoUrl='" + photoUrl + '\'' +
                 ", email='" + email + '\'' +
+                ", roleList=" + roleList +
                 ", purchaseHistory=" + purchaseHistory +
                 ", sellingHistory=" + sellingHistory +
                 '}';

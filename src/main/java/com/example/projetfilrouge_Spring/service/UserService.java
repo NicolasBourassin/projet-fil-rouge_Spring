@@ -48,7 +48,7 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public List<UserDto> findByUsernameIsContainingIgnoreCase(String username) {
+    public Optional<UserDto> findByUsernameIsContainingIgnoreCase(String username) {
         return userRepository.findByUsernameIsContainingIgnoreCase(username);
     }
 

@@ -1,2 +1,4 @@
-package com.example.projetfilrouge_Spring.controller.api;public class AuthenticationController {
+package com.example.projetfilrouge_Spring.controller.api;
+
+public class AuthenticationController {
 }

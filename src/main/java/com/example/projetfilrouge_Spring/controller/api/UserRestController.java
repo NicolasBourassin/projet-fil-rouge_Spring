@@ -31,7 +31,7 @@ public class UserRestController {
 
     @GetMapping("/users/")
     @ResponseBody
-    public List<UserDto> getByUsername(@RequestParam String username) {
+    public Optional<UserDto> getByUsername(@RequestParam String username) {
         if (userService.findByUsernameIsContainingIgnoreCase(username).isEmpty()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }

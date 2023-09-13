@@ -1,9 +1,8 @@
-package com.example.projetfilrouge_Spring.repository.entity;
+package com.example.projetfilrouge_Spring.security;
 
 public class LoginRequest {
 
     private String username;
-
     private String password;
 
     public LoginRequest() {}

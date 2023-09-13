@@ -28,7 +28,7 @@ public class FilRougeApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		/*FIXME : TEST NIVEAU RestController : FAIL*/
-		UserDto user1 = new UserDto("HedyLamarr", "gps",010203040506L,"https://commons.wikimedia.org/wiki/File:Hedy_Lamarr_in_The_Heavenly_Body_1944.jpg?uselang=fr","notamail@null.com");
+		UserDto user1 = new UserDto("HedyLamarr", "gps","010203040506","https://commons.wikimedia.org/wiki/File:Hedy_Lamarr_in_The_Heavenly_Body_1944.jpg?uselang=fr","notamail@null.com");
 		TicketDto ticket1 = new TicketDto(LocalDate.parse("2024-02-24"), "EVENT", 30.30F);
 
 		userRestController.add(user1);

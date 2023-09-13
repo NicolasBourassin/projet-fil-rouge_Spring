@@ -10,9 +10,11 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name ="username", unique = true)
+
+    @Column(name ="username",unique = true)
+
     private String username;
-    @Column(name = "password")
+    @Column(name = "password",unique = true)
     private String password;
     @Column(name = "phoneNumber")
     private Long phoneNumber;
@@ -21,7 +23,9 @@ public class User {
     @Column(name="email")
     private String email;
 
+
     //TODO ajout role
+
     @OneToMany(mappedBy = "user")
     private List<Transaction> purchaseHistory;
     @OneToMany(mappedBy = "user")
@@ -36,8 +40,8 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.photoUrl = photoUrl;
         this.email = email;
-//        this.purchaseHistory = purchaseHistory;
-//        this.sellingHistory = sellingHistory;
+        this.purchaseHistory = purchaseHistory;
+        this.sellingHistory = sellingHistory;
     }
 
     public Long getId() {return id;}
@@ -81,8 +85,8 @@ public class User {
                 ", phoneNumber=" + phoneNumber +
                 ", photoUrl='" + photoUrl + '\'' +
                 ", email='" + email + '\'' +
-//                ", purchaseHistory=" + purchaseHistory +
-//                ", sellingHistory=" + sellingHistory +
+                ", purchaseHistory=" + purchaseHistory +
+                ", sellingHistory=" + sellingHistory +
                 '}';
     }
 }

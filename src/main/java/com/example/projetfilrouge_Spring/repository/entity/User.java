@@ -20,10 +20,10 @@ public class User {
     private String photoUrl;
     @Column(name="email")
     private String email;
-//    @OneToMany(mappedBy = "user";
-//    private List<Transaction> purchaseHistory;
-//    @OneToMany(mappedBy = "user")
-//    private List<Transaction> sellingHistory;
+    @OneToMany(mappedBy = "user")
+    private List<Transaction> purchaseHistory;
+    @OneToMany(mappedBy = "user")
+    private List<Transaction> sellingHistory;
 
     public User() {}
 
@@ -62,13 +62,13 @@ public class User {
 
     public void setEmail(String email) {this.email = email;}
 
-//    public List<Transaction> getPurchaseHistory() {return purchaseHistory;}
-//
-//    public void setPurchaseHistory(List<Transaction> purchaseHistory) {this.purchaseHistory = purchaseHistory;}
-//
-//    public List<Transaction> getSellingHistory() {return sellingHistory;}
-//
-//    public void setSellingHistory(List<Transaction> sellingHistory) {this.sellingHistory = sellingHistory;}
+    public List<Transaction> getPurchaseHistory() {return purchaseHistory;}
+
+    public void setPurchaseHistory(List<Transaction> purchaseHistory) {this.purchaseHistory = purchaseHistory;}
+
+    public List<Transaction> getSellingHistory() {return sellingHistory;}
+
+    public void setSellingHistory(List<Transaction> sellingHistory) {this.sellingHistory = sellingHistory;}
 
     @Override
     public String toString() {

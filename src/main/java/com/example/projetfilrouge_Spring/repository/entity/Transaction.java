@@ -23,9 +23,9 @@ public class Transaction {
     @Column(name ="rating")
     private Float rating;
 
-//    @ManyToOne
-//    @JoinColumn(name = "user_id")
-//    private User user;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Transaction() {}
 

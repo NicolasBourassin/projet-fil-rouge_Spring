@@ -65,13 +65,13 @@ public class FilRougeApplication implements CommandLineRunner {
 //	fixme:	System.out.println("Ticket event : " + ticketRestController.getByEvent("TESTSUPPR").toString());
 
 		// //TEST UPDATE
-		UserDto user2Updated = new UserDto("testUser", "UPDATED", "UPDATED", "UPDATED", "UPDATED");
+		UserDto user2Updated = new UserDto("testUser", "UPDATEDpwd", "UPDATEDnum", "UPDATEDphoto", "UPDATEDmail");
 		TicketDto ticket2Updated = new TicketDto(LocalDate.parse("1001-01-01"), "UPDATED EVENT", 30.30F);
 
 		userRestController.updateById(2L, user2Updated);
 		ticketRestController.updateById(2L, ticket2Updated);
 
-		System.out.println("User updated username : " + userRestController.getById(2L).get().getUsername());
+		System.out.println("User updated PhotoUrl : " + userRestController.getById(2L).get().getPhotoUrl());
 		System.out.println("Ticket updated event : " + ticketRestController.getById(2L).get().getEvent());
 
 	}

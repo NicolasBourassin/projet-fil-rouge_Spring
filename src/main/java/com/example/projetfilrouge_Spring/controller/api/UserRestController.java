@@ -63,12 +63,13 @@ public class UserRestController {
         }
         UserDto updateVersion = updateTarget.get();
         //NOTE : here the User is allowed to modify : password, phone number, photoUrl, email, and nothing else.
-        updateVersion.setId(userDto.getId());
         updateVersion.setPassword(userDto.getPassword());
         updateVersion.setPhoneNumber(userDto.getPhoneNumber());
         updateVersion.setPhotoUrl(userDto.getPhotoUrl());
         updateVersion.setEmail(userDto.getEmail());
 
+        //TODO TEMP
+        System.out.println("TEMP UserRestController : UserDto = " + updateVersion.toString() );
         userService.update(id, updateVersion);
 //        userService.save(new UserDto(id, userDto.getUsername(), userDto.getPassword(),
 //                userDto.getPhoneNumber(), userDto.getPhotoUrl(), userDto.getEmail()));

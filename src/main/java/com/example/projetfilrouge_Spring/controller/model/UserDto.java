@@ -73,6 +73,8 @@ public class UserDto {
         this.email = email;
     }
 
+
+
     public Long getId() {
         return id;
     }
@@ -144,14 +146,12 @@ public class UserDto {
     @Override
     public String toString() {
         return "UserDto{" +
-                "id=" + id +
+                "id=" + id + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", phoneNumber=" + phoneNumber +
                 ", photoUrl='" + photoUrl + '\'' +
                 ", email='" + email + '\'' +
-                ", purchaseHistory=" + purchaseHistory +
-                ", sellingHistory=" + sellingHistory +
                 '}';
     }
 }

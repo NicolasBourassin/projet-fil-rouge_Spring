@@ -66,13 +66,9 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public List<Role> getRoleList() {
-        return roleList;
-    }
+    public List<Role> getRoleList() {return roleList;}
 
-    public void setRoleList(List<Role> roleList) {
-        this.roleList = roleList;
-    }
+    public void setRoleList(List<Role> roleList) {this.roleList = roleList;}
 
     public String getPhotoUrl() {return photoUrl;}
 

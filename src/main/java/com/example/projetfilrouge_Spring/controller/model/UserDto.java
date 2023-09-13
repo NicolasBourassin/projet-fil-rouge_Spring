@@ -13,7 +13,7 @@ public class UserDto {
 
     private String password;
 
-    private Long phoneNumber;
+    private String phoneNumber;
 
     private String photoUrl;
 
@@ -25,7 +25,7 @@ public class UserDto {
     public UserDto(Optional<User> user) {
     }
 
-    public UserDto(Long id, String username, String password, Long phoneNumber, String photoUrl, String email, List<Transaction> purchaseHistory, List<Transaction> sellingHistory) {
+    public UserDto(Long id, String username, String password, String phoneNumber, String photoUrl, String email, List<Transaction> purchaseHistory, List<Transaction> sellingHistory) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -36,7 +36,7 @@ public class UserDto {
         this.sellingHistory = sellingHistory;
     }
 
-    public UserDto(String username, String password, Long phoneNumber, String photoUrl, String email, List<Transaction> purchaseHistory, List<Transaction> sellingHistory) {
+    public UserDto(String username, String password, String phoneNumber, String photoUrl, String email, List<Transaction> purchaseHistory, List<Transaction> sellingHistory) {
         this.username = username;
         this.password = password;
         this.phoneNumber = phoneNumber;
@@ -46,7 +46,7 @@ public class UserDto {
         this.sellingHistory = sellingHistory;
     }
 
-    public UserDto(String username, String password, Long phoneNumber, String photoUrl, String email) {
+    public UserDto(String username, String password, String phoneNumber, String photoUrl, String email) {
         this.username = username;
         this.password = password;
         this.phoneNumber = phoneNumber;
@@ -78,13 +78,9 @@ public class UserDto {
         this.password = password;
     }
 
-    public Long getPhoneNumber() {
-        return phoneNumber;
-    }
+    public String getPhoneNumber() {return phoneNumber;}
 
-    public void setPhoneNumber(Long phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
+    public void setPhoneNumber(String phoneNumber) {this.phoneNumber = phoneNumber;}
 
     public String getPhotoUrl() {
         return photoUrl;

@@ -17,14 +17,13 @@ public class User {
     @Column(name = "password",unique = true)
     private String password;
     @Column(name = "phoneNumber")
-    private Long phoneNumber;
+    private String phoneNumber;
     @Column(name="photoUrl")
     private String photoUrl;
     @Column(name="email")
     private String email;
-
-
-    //TODO ajout role
+    @ManyToMany(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
+    private List<Role> roleList;
 
     @OneToMany(mappedBy = "user")
     private List<Transaction> purchaseHistory;
@@ -33,15 +32,18 @@ public class User {
 
     public User() {}
 
-    public User(String username, String password, Long phoneNumber, String photoUrl, String email, List<Transaction> purchaseHistory, List<Transaction> sellingHistory)
-    {
+    public User(String username, String password, String phoneNumber, String photoUrl, String email, List<Role> roleList, List<Transaction> purchaseHistory, List<Transaction> sellingHistory) {
         this.username = username;
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.photoUrl = photoUrl;
         this.email = email;
+        this.roleList = roleList;
         this.purchaseHistory = purchaseHistory;
         this.sellingHistory = sellingHistory;
+    }
+
+    public User(String username, String password, String phoneNumber, String photoUrl, String email, List<Transaction> purchaseHistory, List<Transaction> sellingHistory) {
     }
 
     public Long getId() {return id;}
@@ -56,9 +58,21 @@ public class User {
 
     public void setPassword(String password) {this.password = password;}
 
-    public Long getPhoneNumber() {return phoneNumber;}
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 
-    public void setPhoneNumber(Long phoneNumber) {this.phoneNumber = phoneNumber;}
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public List<Role> getRoleList() {
+        return roleList;
+    }
+
+    public void setRoleList(List<Role> roleList) {
+        this.roleList = roleList;
+    }
 
     public String getPhotoUrl() {return photoUrl;}
 

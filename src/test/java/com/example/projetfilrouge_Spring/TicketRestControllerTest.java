@@ -53,12 +53,8 @@ class TicketRestControllerTest {
 
         // Assert
         assertEquals(2, result.size());
-        // Add more assertions as needed to verify the behavior of the getAll method.
     }
 
-    // Similar test methods for other controller methods like getByEvent, getById, add, updateById, and deleteById
-
-    // Example test for a specific scenario
     @Test
     void testGetAllEmpty() {
         // Arrange

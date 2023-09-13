@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 
 @SpringBootApplication
@@ -32,6 +33,16 @@ public class FilRougeApplication implements CommandLineRunner {
 
 		userRestController.add(user1);
 		ticketRestController.add(ticket1);
+
+		UserDto user2 = new UserDto("testsuppr", "testsuppr", "testsuppr", "testsuppr", "testsuppr");
+		TicketDto ticket2 = new TicketDto(LocalDate.parse("2024-02-24"), "TESTSUPPR", 30.30F);
+
+		userRestController.add(user2);
+		ticketRestController.add(ticket2);
+
+		// AJOUT OK via RestController
+//		user2 = userRestController.getByUsername("testsuppr").get(0); //to update the id of user2
+
 
 	}
 }

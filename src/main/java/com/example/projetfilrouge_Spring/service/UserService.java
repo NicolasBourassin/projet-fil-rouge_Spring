@@ -33,12 +33,23 @@ public class UserService {
     }
 
     public void save(UserDto userDto) {
+
         User userToAdd = new User(userDto.getUsername(),
                 userDto.getPassword(),
                 userDto.getPhoneNumber(),
                 userDto.getPhotoUrl(),
                 userDto.getEmail());
         userRepository.save(userToAdd);
+    }
+
+    public void update(Long id, UserDto userDto) {
+        User userToUpdate = userRepository.getById(id);
+        userToUpdate.setId(id);
+        userToUpdate.setPassword(userDto.getPassword());
+        userToUpdate.setPhoneNumber(userDto.getPhoneNumber());
+        userToUpdate.setPhotoUrl(userDto.getPhotoUrl());
+        userToUpdate.setEmail(userDto.getEmail());
+        userRepository.save(userToUpdate);
     }
 
 
@@ -49,6 +60,10 @@ public class UserService {
     public List<UserDto> findByUsernameIsContainingIgnoreCase(String username) {
         return userRepository.findByUsernameIsContainingIgnoreCase(username);
     }
+
+    public UserDto findByUsername(String username){
+        return userRepository.findByUsername(username);
+    };
 
     public Optional<UserDto> findById(Long id) {
         UserDto userDto = new UserDto(userRepository.findById(id));

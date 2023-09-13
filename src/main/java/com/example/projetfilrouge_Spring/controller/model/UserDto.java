@@ -64,6 +64,15 @@ public class UserDto {
         this.email = email;
     }
 
+    public UserDto(Long id, String username, String password, String phoneNumber, String photoUrl, String email) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.photoUrl = photoUrl;
+        this.email = email;
+    }
+
     public Long getId() {
         return id;
     }

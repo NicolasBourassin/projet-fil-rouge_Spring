@@ -4,6 +4,7 @@ import com.example.projetfilrouge_Spring.controller.model.UserDto;
 import com.example.projetfilrouge_Spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -31,7 +32,7 @@ public class UserRestController {
 
     @GetMapping("/users/")
     @ResponseBody
-    public List<UserDto> getByUsername(@RequestParam String username) {
+    public List<UserDto> getByUsernameIsContainingIgnoreCase(@RequestParam String username) {
         if (userService.findByUsernameIsContainingIgnoreCase(username) == null){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
@@ -55,18 +56,34 @@ public class UserRestController {
 
     @PutMapping("/users/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void updateById(@PathVariable Long id, @RequestBody UserDto userDto){
-        userService.save(new UserDto(id, userDto.getUsername(), userDto.getPassword(),
-                userDto.getPhoneNumber(), userDto.getPhotoUrl(), userDto.getEmail(),
-                userDto.getRoleList(), userDto.getPurchaseHistory(), userDto.getSellingHistory()));
+    public ResponseEntity<UserDto> updateById(@PathVariable("id") Long id, @RequestBody UserDto userDto){
+        Optional<UserDto> updateTarget = userService.findById(id);
+        if (updateTarget.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        UserDto updateVersion = updateTarget.get();
+        //NOTE : here the User is allowed to modify : password, phone number, photoUrl, email, and nothing else.
+        updateVersion.setId(userDto.getId());
+        updateVersion.setPassword(userDto.getPassword());
+        updateVersion.setPhoneNumber(userDto.getPhoneNumber());
+        updateVersion.setPhotoUrl(userDto.getPhotoUrl());
+        updateVersion.setEmail(userDto.getEmail());
+
+        userService.update(id, updateVersion);
+//        userService.save(new UserDto(id, userDto.getUsername(), userDto.getPassword(),
+//                userDto.getPhoneNumber(), userDto.getPhotoUrl(), userDto.getEmail()));
+        return ResponseEntity.status(HttpStatus.OK).body(updateVersion);
     }
 
     @DeleteMapping("/users/{id}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    public void deleteById(@PathVariable Long id) {
-        if (userService.findById(id).isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NO_CONTENT);
+    public ResponseEntity<HttpStatus> deleteById(@PathVariable("id") Long id) {
+
+        Optional<UserDto> userDto = userService.findById(id);
+        if (userDto.isPresent()) {
+            userService.deleteById(id);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-        userService.deleteById(id);
     }
 }

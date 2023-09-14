@@ -46,23 +46,19 @@ class TicketRestControllerTest {
         TicketDto ticketDto2 = new TicketDto(Optional.of(ticket2));
         List<TicketDto> ticketList = Arrays.asList(ticketDto1, ticketDto2);
 
-        when(ticketService.fetchAll()).thenReturn(ticketList);
+        when(ticketService.findAll()).thenReturn(ticketList);
 
         // Act
         List<TicketDto> result = ticketRestController.getAll();
 
         // Assert
         assertEquals(2, result.size());
-        // Add more assertions as needed to verify the behavior of the getAll method.
     }
 
-    // Similar test methods for other controller methods like getByEvent, getById, add, updateById, and deleteById
-
-    // Example test for a specific scenario
     @Test
     void testGetAllEmpty() {
         // Arrange
-        when(ticketService.fetchAll()).thenReturn(Collections.emptyList());
+        when(ticketService.findAll()).thenReturn(Collections.emptyList());
 
         // Act and Assert
         assertThrows(ResponseStatusException.class, () -> {

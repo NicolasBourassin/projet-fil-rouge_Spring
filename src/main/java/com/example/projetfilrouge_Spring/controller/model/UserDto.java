@@ -13,41 +13,53 @@ import java.util.Optional;
 
 public class UserDto implements UserDetails {
     private Long id;
-
     private String username;
-
     private String password;
-
     private String phoneNumber;
-
     private String photoUrl;
-
     private String email;
+<<<<<<< HEAD
 
+=======
+>>>>>>> develop
     private List<Role> roleList;
     private List<Transaction> purchaseHistory;
-
     private List<Transaction> sellingHistory;
+
+
     public UserDto(Optional<User> user) {
+        this.id = user.get().getId();
+        this.username = user.get().getUsername();
+        this.password = user.get().getPassword();
+        this.phoneNumber = user.get().getPhoneNumber();
+        this.photoUrl = user.get().getPhotoUrl();
+        this.email = user.get().getEmail();
+        this.roleList = user.get().getRoleList();
+        this.purchaseHistory = user.get().getPurchaseHistory();
+        this.sellingHistory = user.get().getSellingHistory();
     }
 
-    public UserDto(Long id, String username, String password, String phoneNumber, String photoUrl, String email, List<Transaction> purchaseHistory, List<Transaction> sellingHistory) {
+    public UserDto(Long id, String username, String password, String phoneNumber, String photoUrl, String email,
+                   List<Role> roleList, List<Transaction> purchaseHistory, List<Transaction> sellingHistory) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.photoUrl = photoUrl;
         this.email = email;
+        this.roleList = roleList;
         this.purchaseHistory = purchaseHistory;
         this.sellingHistory = sellingHistory;
     }
 
-    public UserDto(String username, String password, String phoneNumber, String photoUrl, String email, List<Transaction> purchaseHistory, List<Transaction> sellingHistory) {
+    public UserDto(String username, String password, String phoneNumber, String photoUrl, String email,
+                 List<Role> roleList, List<Transaction> purchaseHistory, List<Transaction> sellingHistory) {
         this.username = username;
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.photoUrl = photoUrl;
         this.email = email;
+        this.roleList = roleList;
         this.purchaseHistory = purchaseHistory;
         this.sellingHistory = sellingHistory;
     }
@@ -60,6 +72,7 @@ public class UserDto implements UserDetails {
         this.email = email;
     }
 
+<<<<<<< HEAD
     @Override
     public boolean isAccountNonExpired() {return true;}
 
@@ -91,6 +104,17 @@ public class UserDto implements UserDetails {
         //Ajouter ce SimpleGrantedAuthority dans une liste
         //retourner cette liste de SimpleGrantedAuthority
         return null;}
+=======
+    public UserDto(Long id, String username, String password, String phoneNumber, String photoUrl, String email) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.photoUrl = photoUrl;
+        this.email = email;
+    }
+
+>>>>>>> develop
 
 
     public Long getId() {
@@ -153,17 +177,23 @@ public class UserDto implements UserDetails {
         this.sellingHistory = sellingHistory;
     }
 
+    public List<Role> getRoleList() {
+        return roleList;
+    }
+
+    public void setRoleList(List<Role> roleList) {
+        this.roleList = roleList;
+    }
+
     @Override
     public String toString() {
         return "UserDto{" +
-                "id=" + id +
+                "id=" + id + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", phoneNumber=" + phoneNumber +
                 ", photoUrl='" + photoUrl + '\'' +
                 ", email='" + email + '\'' +
-                ", purchaseHistory=" + purchaseHistory +
-                ", sellingHistory=" + sellingHistory +
                 '}';
     }
 }

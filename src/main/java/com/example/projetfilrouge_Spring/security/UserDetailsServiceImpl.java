@@ -16,8 +16,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserDetails user = userService.findByUsernameIsContainingIgnoreCase(username)
-                .orElseThrow(() -> new UsernameNotFoundException("username: " + username + " not found"));
+        UserDetails user = userService.findByUsername(username)
+                .orElseThrow(()-> new UsernameNotFoundException("username: " + username + " not found"));
         return user;
     }
 }

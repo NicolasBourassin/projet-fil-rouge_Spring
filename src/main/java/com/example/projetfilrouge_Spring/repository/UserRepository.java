@@ -11,5 +11,7 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    Optional<UserDto> findByUsernameIsContainingIgnoreCase(String username);
+    List<UserDto> findByUsernameIsContainingIgnoreCase(String username);
+    Optional<UserDto> findByUsernameIsContaining(String username);
+
 }

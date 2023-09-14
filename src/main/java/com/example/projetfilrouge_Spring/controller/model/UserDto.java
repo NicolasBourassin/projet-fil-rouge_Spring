@@ -11,17 +11,13 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-public class UserDto implements UserDetails {
+public class UserDto  implements UserDetails{
     private Long id;
     private String username;
     private String password;
     private String phoneNumber;
     private String photoUrl;
     private String email;
-<<<<<<< HEAD
-
-=======
->>>>>>> develop
     private List<Role> roleList;
     private List<Transaction> purchaseHistory;
     private List<Transaction> sellingHistory;
@@ -72,7 +68,20 @@ public class UserDto implements UserDetails {
         this.email = email;
     }
 
-<<<<<<< HEAD
+    public UserDto(Long id, String username, String password, String phoneNumber, String photoUrl, String email) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.photoUrl = photoUrl;
+        this.email = email;
+    }
+
+    public UserDto(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
     @Override
     public boolean isAccountNonExpired() {return true;}
 
@@ -88,34 +97,11 @@ public class UserDto implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities()
     {
-        //boucler sur notre liste de roles ci-dessus
-
-//        Collection<GrantedAuthority> authorities = new ArrayList<>();
-//        for (Role role : this.roleList){
-//            authorities.add(new SimpleGrantedAuthority(role.getRolename()));
-//        }
-
         this.roleList
                 .stream()
                 .map(role -> new SimpleGrantedAuthority(role.getRolename()))
                 .toList();
-
-        //Dans la boucle, créer un new SimpleGrantedAuthority grace au nom du role
-        //Ajouter ce SimpleGrantedAuthority dans une liste
-        //retourner cette liste de SimpleGrantedAuthority
         return null;}
-=======
-    public UserDto(Long id, String username, String password, String phoneNumber, String photoUrl, String email) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.phoneNumber = phoneNumber;
-        this.photoUrl = photoUrl;
-        this.email = email;
-    }
-
->>>>>>> develop
-
 
     public Long getId() {
         return id;
@@ -188,12 +174,15 @@ public class UserDto implements UserDetails {
     @Override
     public String toString() {
         return "UserDto{" +
-                "id=" + id + '\'' +
+                "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", phoneNumber=" + phoneNumber +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 ", photoUrl='" + photoUrl + '\'' +
                 ", email='" + email + '\'' +
+                ", roleList=" + roleList +
+                ", purchaseHistory=" + purchaseHistory +
+                ", sellingHistory=" + sellingHistory +
                 '}';
     }
 }

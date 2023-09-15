@@ -1,18 +1,23 @@
 package com.example.projetfilrouge_Spring.repository.entity;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name="user")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name ="username",unique = true)
-
     private String username;
     @Column(name = "password",unique = true)
     private String password;
@@ -64,6 +69,32 @@ public class User {
         this.email = email;
     }
 
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {return true;}
+
+    @Override
+    public boolean isAccountNonLocked() {return true;}
+
+    @Override
+    public boolean isCredentialsNonExpired() {return true;}
+
+    @Override
+    public boolean isEnabled() {return true;}
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities()
+    {
+        this.roleList
+                .stream()
+                .map(role -> new SimpleGrantedAuthority(role.getRolename()))
+                .collect(Collectors.toList());
+        return null;}
+
     public Long getId() {return id;}
 
     public void setId(Long id) {this.id = id;}
@@ -103,16 +134,16 @@ public class User {
     public List<Transaction> getSellingHistory() {return sellingHistory;}
 
     public void setSellingHistory(List<Transaction> sellingHistory) {this.sellingHistory = sellingHistory;}
-
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", phoneNumber=" + phoneNumber +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 ", photoUrl='" + photoUrl + '\'' +
                 ", email='" + email + '\'' +
+                ", roleList=" + roleList +
                 ", purchaseHistory=" + purchaseHistory +
                 ", sellingHistory=" + sellingHistory +
                 '}';

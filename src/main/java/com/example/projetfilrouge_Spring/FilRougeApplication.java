@@ -4,13 +4,19 @@ import com.example.projetfilrouge_Spring.controller.api.TicketRestController;
 import com.example.projetfilrouge_Spring.controller.api.UserRestController;
 import com.example.projetfilrouge_Spring.controller.model.TicketDto;
 import com.example.projetfilrouge_Spring.controller.model.UserDto;
+import com.example.projetfilrouge_Spring.repository.UserRepository;
+import com.example.projetfilrouge_Spring.repository.entity.Role;
+import com.example.projetfilrouge_Spring.repository.entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Arrays;
 import java.util.Optional;
 
 
@@ -18,6 +24,11 @@ import java.util.Optional;
 public class FilRougeApplication implements CommandLineRunner {
 	private UserRestController userRestController;
 	private TicketRestController ticketRestController;
+
+	@Autowired
+	private UserRepository userRepo;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	public FilRougeApplication(UserRestController userRestController, TicketRestController ticketRestController) {
 		this.userRestController = userRestController;
@@ -29,6 +40,7 @@ public class FilRougeApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+
 		// CRUD :
 		// CREATE  : OK via RestController for User
 		// READ (getById) : OK via RestController for User
@@ -41,14 +53,14 @@ public class FilRougeApplication implements CommandLineRunner {
 		// TODO READ (getByEvent) : OK via RestController for Ticket
 		// DELETE : OK via RestController for Ticket
 		// UPDATE : OK via RestController for Ticket
-
-		UserDto user1 = new UserDto("HedyLamarr", "gps","010203040506","https://commons.wikimedia.org/wiki/File:Hedy_Lamarr_in_The_Heavenly_Body_1944.jpg?uselang=fr","notamail@null.com");
+//
+		UserDto user1 = new UserDto("HedyLamarr", passwordEncoder.encode("gps"),"010203040506","https://commons.wikimedia.org/wiki/File:Hedy_Lamarr_in_The_Heavenly_Body_1944.jpg?uselang=fr","notamail@null.com");
 		TicketDto ticket1 = new TicketDto(LocalDate.parse("2024-02-24"), "EVENT", 30.30F);
 
 		userRestController.add(user1);
 		ticketRestController.add(ticket1);
 
-		UserDto user2 = new UserDto("testUser", "testPwd", "testPhone", "testPhoto", "testEmail");
+		UserDto user2 = new UserDto("testUser", passwordEncoder.encode("testPwd"), "testPhone", "testPhoto", "testEmail");
 		TicketDto ticket2 = new TicketDto(LocalDate.parse("2024-02-24"), "TESTevent", 30.30F);
 
 		userRestController.add(user2);
@@ -75,10 +87,11 @@ public class FilRougeApplication implements CommandLineRunner {
 //		System.out.println("User updated PhotoUrl : " + userRestController.getById(2L).get().getPhotoUrl());
 //		System.out.println("Ticket updated event : " + ticketRestController.getById(2L).get().getEvent());
 
-		List<TicketDto> ticketsDtoFoundByEvent = ticketRestController.getByEvent("EVENT");
-		for (TicketDto dto:ticketsDtoFoundByEvent) {
-			System.out.println("Test Ticket getByEvent : " + dto.toString());
-		}
+		// TEST findByEvent
+//		List<TicketDto> ticketsDtoFoundByEvent = ticketRestController.getByEvent("EVENT");
+//		for (TicketDto dto:ticketsDtoFoundByEvent) {
+//			System.out.println("Test Ticket getByEvent : " + dto.toString());
+//		}
 
 
 	}

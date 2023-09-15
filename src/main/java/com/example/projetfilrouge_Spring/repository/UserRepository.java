@@ -8,9 +8,14 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
-public interface UserRepository extends JpaRepository<User, Long> {
 
-    List<UserDto> findByUsernameIsContainingIgnoreCase(String username);
-    UserDto findByUsername(String username);
+//TODO fix problem by choosing between dto et user
+@Repository
+public interface UserRepository extends JpaRepository <User, Long> {
+
+    // NE SURTOUT PAS MODIFIER
+    List<User> findByUsernameIsContainingIgnoreCase(String username);
+    // NE SURTOUT PAS MODIFIER
+    Optional<User> findByUsername(String username);
+
 }

@@ -1,6 +1,7 @@
 package com.example.projetfilrouge_Spring.controller.api;
 
 import com.example.projetfilrouge_Spring.controller.model.UserDto;
+import com.example.projetfilrouge_Spring.repository.entity.User;
 import com.example.projetfilrouge_Spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,7 +33,8 @@ public class UserRestController {
 
     @GetMapping("/users/")
     @ResponseBody
-    public List<UserDto> getByUsernameIsContainingIgnoreCase(@RequestParam String username) {
+
+    public List<User> getByUsernameIsContainingIgnoreCase(@RequestParam String username) {
         if (userService.findByUsernameIsContainingIgnoreCase(username) == null){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }

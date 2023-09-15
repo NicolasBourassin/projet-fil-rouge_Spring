@@ -7,7 +7,7 @@ import com.example.projetfilrouge_Spring.repository.entity.User;
 import java.util.List;
 import java.util.Optional;
 
-public class UserDto {
+public class UserDto{
     private Long id;
     private String username;
     private String password;
@@ -73,7 +73,10 @@ public class UserDto {
         this.email = email;
     }
 
-
+    public UserDto(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 
     public Long getId() {
         return id;
@@ -146,12 +149,15 @@ public class UserDto {
     @Override
     public String toString() {
         return "UserDto{" +
-                "id=" + id + '\'' +
+                "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", phoneNumber=" + phoneNumber +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 ", photoUrl='" + photoUrl + '\'' +
                 ", email='" + email + '\'' +
+                ", roleList=" + roleList +
+                ", purchaseHistory=" + purchaseHistory +
+                ", sellingHistory=" + sellingHistory +
                 '}';
     }
 }

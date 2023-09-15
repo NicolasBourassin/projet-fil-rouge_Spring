@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+//TODO check all entries is user and return is Dto
 @Service
 public class UserService {
     private UserRepository userRepository;
@@ -37,12 +38,15 @@ public class UserService {
                 userDto.getEmail());
         userRepository.save(userToAdd);
     }
-
-    public List<UserDto> findByUsernameIsContainingIgnoreCase(String username) {
+    public void remove(Long id) {
+        userRepository.deleteById(id);
+    }
+// NE SURTOUT PAS MODIFIER
+    public List<User> findByUsernameIsContainingIgnoreCase(String username) {
         return userRepository.findByUsernameIsContainingIgnoreCase(username);
     }
-
-    public UserDto findByUsername(String username){
+    // NE SURTOUT PAS MODIFIER
+    public Optional<User> findByUsername(String username){
         return userRepository.findByUsername(username);
     };
 

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,7 +40,7 @@ TicketService {
 
     public List<TicketDto> findTicketByEventContainingIgnoreCase(String event) {
         List<Ticket> result = ticketRepository.findTicketByEventContainingIgnoreCase(event);
-        List<TicketDto> resultTicketDto = null;
+        List<TicketDto> resultTicketDto = Collections.emptyList();
         for (Ticket ticket: result) {
             TicketDto ticketDto = new TicketDto(Optional.ofNullable(ticket));
             resultTicketDto.add(ticketDto);

@@ -22,6 +22,7 @@ public class UserService {
         List<User> allUsers = userRepository.findAll();
         List<UserDto> allUserDto = new ArrayList<>();
         for (User user: allUsers) {
+            // translation from User to UserDto is done via a constructor with User as input
             UserDto userDto = new UserDto(Optional.ofNullable(user));
             allUserDto.add(userDto);
         }

@@ -11,9 +11,11 @@ import java.util.Optional;
 
 //TODO fix problem by choosing between dto et user
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository <User, Long> {
 
-    List<UserDto> findByUsernameIsContainingIgnoreCase(String username);
-    Optional<UserDto> findByUsernameIsContaining(String username);
+    // NE SURTOUT PAS MODIFIER
+    List<User> findByUsernameIsContainingIgnoreCase(String username);
+    // NE SURTOUT PAS MODIFIER
+    Optional<User> findByUsername(String username);
 
 }

@@ -3,16 +3,11 @@ package com.example.projetfilrouge_Spring.controller.model;
 import com.example.projetfilrouge_Spring.repository.entity.Role;
 import com.example.projetfilrouge_Spring.repository.entity.Transaction;
 import com.example.projetfilrouge_Spring.repository.entity.User;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
-public class UserDto  implements UserDetails{
+public class UserDto{
     private Long id;
     private String username;
     private String password;
@@ -82,27 +77,6 @@ public class UserDto  implements UserDetails{
         this.username = username;
         this.password = password;
     }
-
-    @Override
-    public boolean isAccountNonExpired() {return true;}
-
-    @Override
-    public boolean isAccountNonLocked() {return true;}
-
-    @Override
-    public boolean isCredentialsNonExpired() {return true;}
-
-    @Override
-    public boolean isEnabled() {return true;}
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities()
-    {
-        this.roleList
-                .stream()
-                .map(role -> new SimpleGrantedAuthority(role.getRolename()))
-                .collect(Collectors.toList());
-        return null;}
 
     public Long getId() {
         return id;

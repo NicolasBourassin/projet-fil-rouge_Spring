@@ -23,12 +23,13 @@ public class JwtUtils {
     @Value("${jwt.utils.expiration.duration}")
     private long expirationMs;
 
+    // NE SURTOUT PAS MODIFIER
     public String generateJwtToken(Authentication authentication) {
-        UserDto userDto = (UserDto) authentication.getPrincipal();
+        User user = (User) authentication.getPrincipal();
         SecretKeySpec secretKey = new SecretKeySpec(jwtSecret.getBytes(StandardCharsets.UTF_8), "HmacSHA512");
         return Jwts
                 .builder()
-                .setSubject(userDto.getUsername())
+                .setSubject(user.getUsername())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(new Date().getTime() + this.expirationMs))
                 .signWith(secretKey)

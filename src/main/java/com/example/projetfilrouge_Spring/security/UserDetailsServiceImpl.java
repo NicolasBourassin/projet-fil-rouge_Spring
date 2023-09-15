@@ -1,6 +1,5 @@
 package com.example.projetfilrouge_Spring.security;
 
-import com.example.projetfilrouge_Spring.repository.UserRepository;
 import com.example.projetfilrouge_Spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,8 +15,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserDetails userDto = userService.findByUsername(username)
+        UserDetails user = userService.findByUsername(username)
                 .orElseThrow(()-> new UsernameNotFoundException("username: " + username + " not found"));
-        return userDto;
+        return user;
     }
 }

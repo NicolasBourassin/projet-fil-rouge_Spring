@@ -54,17 +54,17 @@ public class FilRougeApplication implements CommandLineRunner {
 		// DELETE : OK via RestController for Ticket
 		// UPDATE : OK via RestController for Ticket
 //
-		UserDto user1 = new UserDto("HedyLamarr", passwordEncoder.encode("gps"),"010203040506","https://commons.wikimedia.org/wiki/File:Hedy_Lamarr_in_The_Heavenly_Body_1944.jpg?uselang=fr","notamail@null.com");
-		TicketDto ticket1 = new TicketDto(LocalDate.parse("2024-02-24"), "EVENT", 30.30F);
-
-		userRestController.add(user1);
-		ticketRestController.add(ticket1);
-
-		UserDto user2 = new UserDto("testUser", passwordEncoder.encode("testPwd"), "testPhone", "testPhoto", "testEmail");
-		TicketDto ticket2 = new TicketDto(LocalDate.parse("2024-02-24"), "TESTevent", 30.30F);
-
-		userRestController.add(user2);
-		ticketRestController.add(ticket2);
+//		UserDto user1 = new UserDto("HedyLamarr", passwordEncoder.encode("gps"),"010203040506","https://commons.wikimedia.org/wiki/File:Hedy_Lamarr_in_The_Heavenly_Body_1944.jpg?uselang=fr","notamail@null.com");
+//		TicketDto ticket1 = new TicketDto(LocalDate.parse("2024-02-24"), "EVENT", 30.30F);
+//
+//		userRestController.add(user1);
+//		ticketRestController.add(ticket1);
+//
+//		UserDto user2 = new UserDto("testUser", passwordEncoder.encode("testPwd"), "testPhone", "testPhoto", "testEmail");
+//		TicketDto ticket2 = new TicketDto(LocalDate.parse("2024-02-24"), "TESTevent", 30.30F);
+//
+//		userRestController.add(user2);
+//		ticketRestController.add(ticket2);
 
 		// //TEST DELETE
 //		userRestController.deleteById(2L);
@@ -93,6 +93,10 @@ public class FilRougeApplication implements CommandLineRunner {
 //			System.out.println("Test Ticket getByEvent : " + dto.toString());
 //		}
 
+		List<UserDto> usersDtoFoundByName = userRestController.getByUsernameIsContainingIgnoreCase("La");
+		for (UserDto dto:usersDtoFoundByName) {
+			System.out.println("Test User getByUsernameIsContainingIgnoreCase : " + dto.getUsername().toString());
+		}
 
 	}
 }

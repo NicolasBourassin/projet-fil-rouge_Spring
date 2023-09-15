@@ -9,6 +9,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,10 +39,8 @@ public class UserService {
                 userDto.getEmail());
         userRepository.save(userToAdd);
     }
-    public void remove(Long id) {
-        userRepository.deleteById(id);
-    }
-// NE SURTOUT PAS MODIFIER
+
+    // NE SURTOUT PAS MODIFIER
     public List<User> findByUsernameIsContainingIgnoreCase(String username) {
         return userRepository.findByUsernameIsContainingIgnoreCase(username);
     }
@@ -90,4 +89,17 @@ public class UserService {
 
         userRepository.save(userToUpdate);
     }
+
+    public UserDto toDto(User user){
+        return new UserDto(Optional.ofNullable(user));
+    }
+
+    public List<UserDto> listToDto(List<User> userList){
+        List<UserDto> dtoList = new ArrayList<>();
+        for (User user:userList) {
+            dtoList.add(toDto(user));
+        }
+        return dtoList;
+    }
+
 }

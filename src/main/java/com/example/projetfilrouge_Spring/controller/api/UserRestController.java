@@ -33,13 +33,13 @@ public class UserRestController {
 
     @GetMapping("/users/")
     @ResponseBody
-
-    public List<User> getByUsernameIsContainingIgnoreCase(@RequestParam String username) {
+    public List<UserDto> getByUsernameIsContainingIgnoreCase(@RequestParam String username) {
         if (userService.findByUsernameIsContainingIgnoreCase(username) == null){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        return userService.findByUsernameIsContainingIgnoreCase(username);
+        return userService.listToDto(userService.findByUsernameIsContainingIgnoreCase(username));
     }
+
     @GetMapping("/users/{id}")
     public Optional<UserDto> getById(@PathVariable Long id) {
         if (userService.findById(id).isEmpty()){
@@ -48,7 +48,7 @@ public class UserRestController {
         return userService.findById(id);
     }
 
-    @PostMapping("/users")
+    @PostMapping("/users/register")
     @ResponseStatus(HttpStatus.CREATED)
     public void add(@RequestBody UserDto userDto) {
         userService.save(new UserDto(userDto.getUsername(), userDto.getPassword(),

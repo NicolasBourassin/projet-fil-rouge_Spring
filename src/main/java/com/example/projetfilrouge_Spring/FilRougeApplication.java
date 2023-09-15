@@ -44,13 +44,13 @@ public class FilRougeApplication implements CommandLineRunner {
 		// CRUD :
 		// CREATE  : OK via RestController for User
 		// READ (getById) : OK via RestController for User
-		// TODO READ (getByUsername) : OK via RestController for User
+		// READ (getByUsername) : OK via RestController for User
 		// DELETE : OK via RestController for User
 		// UPDATE : OK via RestController for User
 
 		// CREATE  : OK via RestController for Ticket
 		// READ : OK via RestController for Ticket (getById)
-		// TODO READ (getByEvent) : OK via RestController for Ticket
+		// READ (getByEvent) : OK via RestController for Ticket
 		// DELETE : OK via RestController for Ticket
 		// UPDATE : OK via RestController for Ticket
 //
@@ -74,8 +74,6 @@ public class FilRougeApplication implements CommandLineRunner {
 //		System.out.println("PRINT TEST");
 //		System.out.println("User username : " + userRestController.getById(2L).get().getUsername());
 //		System.out.println("Ticket event : " + ticketRestController.getById(2L).get().getEvent());
-// fixme:		System.out.println("User username : " + userRestController.getByUsernameIsContainingIgnoreCase("tosuppr").get(0).getUsername());
-//	fixme:	System.out.println("Ticket event : " + ticketRestController.getByEvent("TESTSUPPR").toString());
 
 		// //TEST UPDATE
 //		UserDto user2Updated = new UserDto("testUser", "UPDATEDpwd", "UPDATEDnum", "UPDATEDphoto", "UPDATEDmail");
@@ -93,10 +91,11 @@ public class FilRougeApplication implements CommandLineRunner {
 //			System.out.println("Test Ticket getByEvent : " + dto.toString());
 //		}
 
-		List<UserDto> usersDtoFoundByName = userRestController.getByUsernameIsContainingIgnoreCase("La");
-		for (UserDto dto:usersDtoFoundByName) {
-			System.out.println("Test User getByUsernameIsContainingIgnoreCase : " + dto.getUsername().toString());
-		}
+		// TEST getByUsernameIsContainingIgnoreCase
+//		List<UserDto> usersDtoFoundByName = userRestController.getByUsernameIsContainingIgnoreCase("La");
+//		for (UserDto dto:usersDtoFoundByName) {
+//			System.out.println("Test User getByUsernameIsContainingIgnoreCase : " + dto.getUsername().toString());
+//		}
 
 	}
 }

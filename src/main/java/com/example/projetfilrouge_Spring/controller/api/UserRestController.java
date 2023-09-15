@@ -31,7 +31,7 @@ public class UserRestController {
         return userService.findAll();
     }
 
-    @GetMapping("/users/")
+    @GetMapping("/users?")
     @ResponseBody
     public List<UserDto> getByUsernameIsContainingIgnoreCase(@RequestParam String username) {
         if (userService.findByUsernameIsContainingIgnoreCase(username) == null){

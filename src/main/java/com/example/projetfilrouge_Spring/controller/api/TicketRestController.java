@@ -31,7 +31,7 @@ public class TicketRestController {
         return ticketService.findAll();
     }
 
-    @GetMapping("/tickets/")
+    @GetMapping("/tickets?")
     @ResponseBody
     public List<TicketDto> getByEvent(@RequestParam String event) {
         if (ticketService.findTicketByEventContainingIgnoreCase(event).isEmpty()){

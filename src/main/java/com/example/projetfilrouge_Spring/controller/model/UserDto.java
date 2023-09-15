@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class UserDto  implements UserDetails{
     private Long id;
@@ -100,7 +101,7 @@ public class UserDto  implements UserDetails{
         this.roleList
                 .stream()
                 .map(role -> new SimpleGrantedAuthority(role.getRolename()))
-                .toList();
+                .collect(Collectors.toList());
         return null;}
 
     public Long getId() {

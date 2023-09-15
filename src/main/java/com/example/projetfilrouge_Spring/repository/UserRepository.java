@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+
+//TODO fix problem by choosing between dto et user
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 

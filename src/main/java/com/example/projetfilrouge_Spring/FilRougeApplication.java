@@ -97,5 +97,10 @@ public class FilRougeApplication implements CommandLineRunner {
 //			System.out.println("Test User getByUsernameIsContainingIgnoreCase : " + dto.getUsername().toString());
 //		}
 
+
+//		UserDto user = new UserDto("sam", passwordEncoder.encode("123"),"","","sam@null.com");
+//		userRestController.add(user);
+
+
 	}
 }

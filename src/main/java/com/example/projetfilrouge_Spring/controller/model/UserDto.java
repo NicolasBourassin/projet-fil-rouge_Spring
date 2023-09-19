@@ -18,6 +18,8 @@ public class UserDto{
     private List<Transaction> purchaseHistory;
     private List<Transaction> sellingHistory;
 
+    public UserDto() {
+    }
 
     public UserDto(Optional<User> user) {
         this.id = user.get().getId();
@@ -62,6 +64,15 @@ public class UserDto{
         this.phoneNumber = phoneNumber;
         this.photoUrl = photoUrl;
         this.email = email;
+    }
+
+    public UserDto(String username, String password,
+                   Optional<String> phoneNumber, Optional<String> photoUrl, Optional<String> email) {
+        this.username = username;
+        this.password = password;
+        this.phoneNumber = phoneNumber.get();
+        this.photoUrl = photoUrl.get();
+        this.email = email.get();
     }
 
     public UserDto(Long id, String username, String password, String phoneNumber, String photoUrl, String email) {

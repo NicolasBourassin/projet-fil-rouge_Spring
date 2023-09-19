@@ -56,6 +56,7 @@ public class UserRestController {
                 userDto.getRoleList(), userDto.getPurchaseHistory(), userDto.getSellingHistory()));
     }
 
+    // fixme : probably not safe : verify if a connected User can manually modify the url {id} to update another User
     @PutMapping("/users/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<UserDto> updateById(@PathVariable("id") Long id, @RequestBody UserDto userDto){
@@ -76,6 +77,7 @@ public class UserRestController {
         return ResponseEntity.status(HttpStatus.OK).body(updateVersion);
     }
 
+    // fixme : probably not safe : verify if a connected User can manually modify the url {id} to suppr another User
     @DeleteMapping("/users/{id}")
     public ResponseEntity<HttpStatus> deleteById(@PathVariable("id") Long id) {
         Optional<UserDto> userDto = userService.findById(id);

@@ -48,7 +48,7 @@ public class UserRestController {
         return userService.findById(id);
     }
 
-    @PostMapping("/users/register")
+    @PostMapping("/auth/register")
     @ResponseStatus(HttpStatus.CREATED)
     public void add(@RequestBody UserDto userDto) {
         userService.save(new UserDto(userDto.getUsername(), userDto.getPassword(),

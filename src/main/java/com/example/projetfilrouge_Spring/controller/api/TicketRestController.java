@@ -33,11 +33,11 @@ public class TicketRestController {
 
     @GetMapping("/tickets?")
     @ResponseBody
-    public List<TicketDto> getByEvent(@RequestParam String event) {
-        if (ticketService.findTicketByEventContainingIgnoreCase(event).isEmpty()){
+    public List<TicketDto> getByEventName(@RequestParam String eventName) {
+        if (ticketService.findTicketByEventNameContainingIgnoreCase(eventName).isEmpty()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        return ticketService.findTicketByEventContainingIgnoreCase(event);
+        return ticketService.findTicketByEventNameContainingIgnoreCase(eventName);
     }
     @GetMapping("/tickets/{id}")
     public Optional<TicketDto> getById(@PathVariable Long id) {
@@ -63,7 +63,7 @@ public class TicketRestController {
         TicketDto updateVersion = updateTarget.get();
 
         updateVersion.setDate(ticketDto.getDate());
-        updateVersion.setEvent(ticketDto.getEvent());
+        updateVersion.setEventName(ticketDto.getEventName());
         updateVersion.setPrice(ticketDto.getPrice());
 
         //TODO TEMP

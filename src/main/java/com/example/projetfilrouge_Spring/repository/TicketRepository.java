@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
-    List<Ticket> findTicketsByEventContainingIgnoreCaseAndDateBefore(String event, LocalDate current_date);
-    List<Ticket> findTicketByEventContainingIgnoreCase(String event);
+    List<Ticket> findTicketsByEventNameContainingIgnoreCaseAndDateBefore(String event, LocalDate current_date);
+    List<Ticket> findTicketByEventNameContainingIgnoreCase(String event);
 }

@@ -4,23 +4,24 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name="transaction")
+@Table(name = "transaction")
 public class Transaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name ="completed")
+    @Column(name = "completed")
     private Boolean completed;
 
-    @Column(name ="ticket")
-    @OneToOne(mappedBy = "transaction")
+    @OneToOne
+    @JoinColumn(name = "ticket_id", referencedColumnName = "id")
     private Ticket ticket;
-    @Column(name ="date")
+
+    @Column(name = "date")
     private LocalDate date;
 
-    @Column(name ="rating")
+    @Column(name = "rating")
     private Float rating;
 
     @ManyToOne
@@ -31,7 +32,7 @@ public class Transaction {
 
     public Transaction(Boolean completed, Ticket ticket, LocalDate date) {
         this.completed = completed;
-//        this.ticket = ticket;
+        this.ticket = ticket;
         this.date = date;
     }
 
@@ -47,9 +48,9 @@ public class Transaction {
 
     public void setCompleted(Boolean completed) {this.completed = completed;}
 
-//    public Ticket getTicket() {return ticket;}
-//
-//    public void setTicket(Ticket ticket) {this.ticket = ticket;}
+    public Ticket getTicket() {return ticket;}
+
+    public void setTicket(Ticket ticket) {this.ticket = ticket;}
 
     public LocalDate getDate() {return date;}
 
@@ -64,10 +65,10 @@ public class Transaction {
         return "Transaction{" +
                 "id=" + id +
                 ", completed=" + completed +
-//                ", ticket=" + ticket +
+                ", ticket=" + ticket +
                 ", date=" + date +
                 ", date=" + date +
                 ", rating=" + rating +
-                '}';
+                "}";
     }
 }

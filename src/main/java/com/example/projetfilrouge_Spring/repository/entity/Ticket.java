@@ -4,50 +4,58 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name="ticket")
+@Table(name = "ticket")
 public class Ticket {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  Long id;
+    private Long id;
 
-    @Column(name ="date")
+    @Column(name = "date")
     private LocalDate date;
 
-    @Column(name ="event")
-    private String event;
+    @Column(name = "eventName")
+    private String eventName;
+
+    @Column(name = "eventType")
+    private String eventType;
+
+    @Column(name = "eventCity")
+    private String eventCity;
 
     @Column(name = "price")
     private Float price;
 
-    @OneToOne(mappedBy = "ticket")
-    @Column(name = "transaction")
+    @OneToOne(mappedBy = "ticket", cascade = CascadeType.ALL)
+    @JoinColumn(name = "transaction_id")
     private Transaction transaction;
 
-    //ajouter cardinalité( one to one ou Many to one)
-    public Ticket() {}
-
-    public Ticket(Long id, LocalDate date, String event, Float price) {
-        this.id = id;
-        this.date = date;
-        this.event = event;
-        this.price = price;
+    public Ticket() {
     }
 
-    //FIXME : temporaire juste pour tester code avec transaction sans cardinalité
-//    public Ticket(Long id, Transaction transaction) {
-//        this.id = id;
-//        this.transaction=transaction;
-//    }
+    public Ticket(Long id, LocalDate date, String eventName, String eventType, String eventCity, Float price, Transaction transaction) {
+        this.id = id;
+        this.date = date;
+        this.eventName = eventName;
+        this.eventType = eventType;
+        this.eventCity = eventCity;
+        this.price = price;
+        this.transaction = transaction;
+    }
+
+    public Ticket(LocalDate date, String eventName, String eventType, String eventCity, Float price) {
+        this.date = date;
+        this.eventName = eventName;
+        this.eventType = eventType;
+        this.eventCity = eventCity;
+        this.price = price;
+    }
 
     public Ticket(LocalDate date, String event, Float price) {
         this.date = date;
-        this.event = event;
+        this.eventName = eventName;
         this.price = price;
     }
-
-
-    public Ticket(Long id, String event, Float price) {}
 
     public Long getId() {
         return id;
@@ -65,12 +73,12 @@ public class Ticket {
         this.date = date;
     }
 
-    public String getEvent() {
-        return event;
+    public String getEventName() {
+        return eventName;
     }
 
-    public void setEvent(String event) {
-        this.event = event;
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
     }
 
     public Float getPrice() {
@@ -81,13 +89,40 @@ public class Ticket {
         this.price = price;
     }
 
+    public Transaction getTransaction() {
+        return transaction;
+    }
+
+    public void setTransaction(Transaction transaction) {
+        this.transaction = transaction;
+    }
+
+    public String getEventType() {
+        return eventType;
+    }
+
+    public void setEventType(String eventType) {
+        this.eventType = eventType;
+    }
+
+    public String getEventCity() {
+        return eventCity;
+    }
+
+    public void setEventCity(String eventCity) {
+        this.eventCity = eventCity;
+    }
+
     @Override
     public String toString() {
         return "Ticket{" +
                 "id=" + id +
                 ", date=" + date +
-                ", event='" + event + '\'' +
+                ", eventName='" + eventName + '\'' +
                 ", price=" + price +
-                '}';
+                ", transaction ID = " + transaction.getId() +
+                ", transaction completed = " + transaction.getCompleted() +
+                ", transaction date = " + transaction.getDate() +
+                "}";
     }
 }

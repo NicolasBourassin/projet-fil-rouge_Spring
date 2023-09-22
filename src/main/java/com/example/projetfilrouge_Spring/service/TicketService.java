@@ -1,17 +1,14 @@
 package com.example.projetfilrouge_Spring.service;
 
 import com.example.projetfilrouge_Spring.controller.model.TicketDto;
-import com.example.projetfilrouge_Spring.controller.model.UserDto;
 import com.example.projetfilrouge_Spring.repository.TicketRepository;
 import com.example.projetfilrouge_Spring.repository.entity.Ticket;
-import com.example.projetfilrouge_Spring.repository.entity.User;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,13 +32,13 @@ TicketService {
 
     public void save(TicketDto ticketDto) {
         Ticket ticketToAdd = new Ticket(ticketDto.getDate(),
-                ticketDto.getEvent(),
+                ticketDto.getEventName(),
                 ticketDto.getPrice());
         ticketRepository.save(ticketToAdd);
     }
 
-    public List<TicketDto> findTicketByEventContainingIgnoreCase(String event) {
-        List<Ticket> result = ticketRepository.findTicketByEventContainingIgnoreCase(event);
+    public List<TicketDto> findTicketByEventNameContainingIgnoreCase(String event) {
+        List<Ticket> result = ticketRepository.findTicketByEventNameContainingIgnoreCase(event);
         List<TicketDto> resultTicketDto = new ArrayList<>();
         for (Ticket ticket: result) {
             TicketDto ticketDto = new TicketDto(Optional.ofNullable(ticket));
@@ -64,13 +61,13 @@ TicketService {
         // verification for each attribute that a "null" value would not erase the current value
         // temporary variables to avoid confusion between getters & setters
         LocalDate date = ticketDto.getDate();
-        String event = ticketDto.getEvent();
+        String event = ticketDto.getEventName();
         Float price = ticketDto.getPrice();
         if(date!=null){
             ticketToUpdate.setDate(date);
         }
         if(event!=null){
-            ticketToUpdate.setEvent(event);
+            ticketToUpdate.setEventName(event);
         }
         if(price!=null){
             ticketToUpdate.setPrice(price);

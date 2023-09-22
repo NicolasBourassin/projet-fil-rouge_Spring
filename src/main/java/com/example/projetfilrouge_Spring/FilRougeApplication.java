@@ -2,12 +2,15 @@ package com.example.projetfilrouge_Spring;
 
 import com.example.projetfilrouge_Spring.controller.api.TicketRestController;
 import com.example.projetfilrouge_Spring.controller.api.UserRestController;
+import com.example.projetfilrouge_Spring.controller.model.TicketDto;
 import com.example.projetfilrouge_Spring.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.time.LocalDate;
 
 @SpringBootApplication
 public class FilRougeApplication implements CommandLineRunner {
@@ -86,6 +89,7 @@ public class FilRougeApplication implements CommandLineRunner {
 //			System.out.println("Test User getByUsernameIsContainingIgnoreCase : " + dto.getUsername().toString());
 //		}
 
+		//TODO : ENCODE ALL PASSWORD EXAMPLES
 
 //		UserDto user = new UserDto("sam", passwordEncoder.encode("123"),"","","sam@null.com");
 //		userRestController.add(user);

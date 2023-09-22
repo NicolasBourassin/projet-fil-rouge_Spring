@@ -2,21 +2,12 @@ package com.example.projetfilrouge_Spring;
 
 import com.example.projetfilrouge_Spring.controller.api.TicketRestController;
 import com.example.projetfilrouge_Spring.controller.api.UserRestController;
-import com.example.projetfilrouge_Spring.controller.model.TicketDto;
-import com.example.projetfilrouge_Spring.controller.model.UserDto;
 import com.example.projetfilrouge_Spring.repository.UserRepository;
-import com.example.projetfilrouge_Spring.repository.entity.Role;
-import com.example.projetfilrouge_Spring.repository.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Optional;
 
 
 @SpringBootApplication

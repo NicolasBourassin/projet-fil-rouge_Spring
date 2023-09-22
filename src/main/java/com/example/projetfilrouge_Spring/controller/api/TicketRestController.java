@@ -31,14 +31,32 @@ public class TicketRestController {
         return ticketService.findAll();
     }
 
-    @GetMapping("/tickets?")
+    // TODO : idem avec getByEventCity & getByEventType
+    @GetMapping("/tickets/event")
     @ResponseBody
-    public List<TicketDto> getByEventName(@RequestParam String eventName) {
-        if (ticketService.findTicketByEventNameContainingIgnoreCase(eventName).isEmpty()){
+    public List<TicketDto> getByEventName(@RequestParam("eventName") String eventName) {
+        if (ticketService.findTicketByEventNameContainingIgnoreCase(eventName).isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         return ticketService.findTicketByEventNameContainingIgnoreCase(eventName);
     }
+
+    //TODO : TOTEST : multiple search criterions !
+    // eventName : partial matches accepted
+    // eventCity & eventType : perfect matches only
+
+    @GetMapping("/tickets/search")
+    @ResponseBody
+    public List<TicketDto> searchTickets(
+            @RequestParam(name = "eventName", required = false) String eventName,
+            @RequestParam(name = "eventCity", required = false) String eventCity,
+            @RequestParam(name = "eventType", required = false) String eventType) {
+
+        // Use your service method to perform the search with DTOs
+        return ticketService.searchTickets(eventName, eventCity, eventType);
+    }
+
+
     @GetMapping("/tickets/{id}")
     public Optional<TicketDto> getById(@PathVariable Long id) {
         if (ticketService.findById(id).isEmpty()){

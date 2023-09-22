@@ -59,6 +59,7 @@ public class WebSecurityConfig {
                     .requestMatchers("/api/users/**").permitAll() //TODO filter access
                     .requestMatchers("/api/auth/**").permitAll()  //TODO filter access
                     .requestMatchers("/api/tickets/**").permitAll() //TODO filter access
+                    .requestMatchers("/api/tickets**").permitAll() //TODO filter access
                     //Toutes les autres requêtes HTTP nécessitent une authentification
                     .anyRequest().authenticated();
         });

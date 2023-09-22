@@ -32,7 +32,7 @@ public class TicketRepositoryTests {
         ticketRepository.save(ticket3);
         ticketRepository.save(ticket4);
         // Assess
-        List<Ticket> tickets = ticketRepository.findTicketsByEventContainingIgnoreCaseAndDateBefore("Event", LocalDate.now());
+        List<Ticket> tickets = ticketRepository.findTicketsByEventNameContainingIgnoreCaseAndDateBefore("Event", LocalDate.now());
 
         // Assert
         // Check if search results contain the expected tickets

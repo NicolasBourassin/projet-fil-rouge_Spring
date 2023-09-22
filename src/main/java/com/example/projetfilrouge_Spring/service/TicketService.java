@@ -6,9 +6,11 @@ import com.example.projetfilrouge_Spring.repository.entity.Ticket;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +18,7 @@ import java.util.Optional;
 public class
 TicketService {
     private TicketRepository ticketRepository;
-    public TicketService(TicketRepository ticketRepository){
+    public TicketService(TicketRepository ticketRepository) {
         this.ticketRepository = ticketRepository;
     }
 
@@ -94,4 +96,60 @@ TicketService {
     }
 
 
+
+    public List<Ticket> findIntersection(List<Ticket>... lists) {
+        if (lists == null || lists.length == 0) {
+            return new ArrayList<>();
+        }
+        // intersection begins empty
+        List<Ticket> intersection = new ArrayList<>();
+        // if their is at least one non empty list, put the content of the 1st list into
+        // the
+        if (lists.length > 0) {
+            intersection.addAll(lists[0]);
+        }
+        //
+        for (int i = 1; i < lists.length; i++) {
+            if (intersection.isEmpty()){
+                intersection.addAll(lists[i]); // if intersection empty, continue to add next list content
+                // to get a starting comparison point
+            }else{
+                intersection.retainAll(lists[i]);
+                // filter instances not already in intersection.
+            }
+        }
+
+        return intersection; //return Ticket format
+    }
+
+
+    public List<TicketDto> searchTickets(String eventName, String eventCity, String eventType) {
+        List<Ticket> foundByEventName = StringUtils.isEmpty(eventName)
+                ? Collections.emptyList()
+                : ticketRepository.findTicketByEventNameContainingIgnoreCase(eventName);
+
+        List<Ticket> foundByEventCity = StringUtils.isEmpty(eventCity)
+                ? Collections.emptyList()
+                : ticketRepository.findTicketsByEventCityIgnoreCase(eventCity);
+
+        List<Ticket> foundByEventType = StringUtils.isEmpty(eventType)
+                ? Collections.emptyList()
+                : ticketRepository.findTicketsByEventTypeIgnoreCase(eventType);
+        // The entities satisfying all the (optional) search criterions are the intersection of separates query results.
+        List<Ticket> intersection = findIntersection(foundByEventName, foundByEventCity, foundByEventType);
+
+        // Convert the matching tickets to DTOs
+        return listToDto(intersection);
+    }
+//    public List<TicketDto> searchTickets(String eventName, String eventCity, String eventType) {
+//        List<Ticket> foundByEventName = ticketRepository.findTicketByEventNameContainingIgnoreCase(eventName);
+//        List<Ticket> foundByEventCity = ticketRepository.findTicketsByEventCityIgnoreCase(eventCity);
+//        List<Ticket> foundByEventType = ticketRepository.findTicketsByEventTypeIgnoreCase(eventType);
+//
+//        // The entities satisfying all the (optional) search criterions are the intersection of separates query results.
+//        List<Ticket> intersection = findIntersection(foundByEventName, foundByEventCity, foundByEventType);
+//
+//        // Convert the matching tickets to DTOs
+//        return listToDto(intersection);
+//    }
 }

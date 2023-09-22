@@ -6,6 +6,7 @@ import com.example.projetfilrouge_Spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -17,9 +18,11 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class UserRestController {
 
-    UserService userService;
-    public UserRestController(UserService userService) {
+    private PasswordEncoder passwordEncoder;
+    private UserService userService;
+    public UserRestController(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/users")
@@ -51,7 +54,7 @@ public class UserRestController {
     @PostMapping("/auth/register")
     @ResponseStatus(HttpStatus.CREATED)
     public void add(@RequestBody UserDto userDto) {
-        userService.save(new UserDto(userDto.getUsername(), userDto.getPassword(),
+        userService.save(new UserDto(userDto.getUsername(), passwordEncoder.encode(userDto.getPassword()),
                 userDto.getPhoneNumber(), userDto.getPhotoUrl(), userDto.getEmail(),
                 userDto.getRoleList(), userDto.getPurchaseHistory(), userDto.getSellingHistory()));
     }
@@ -66,7 +69,7 @@ public class UserRestController {
         }
         UserDto updateVersion = updateTarget.get();
         //NOTE : here the User is allowed to modify : password, phone number, photoUrl, email, and nothing else.
-        updateVersion.setPassword(userDto.getPassword());
+        updateVersion.setPassword( passwordEncoder.encode(userDto.getPassword()) );
         updateVersion.setPhoneNumber(userDto.getPhoneNumber());
         updateVersion.setPhotoUrl(userDto.getPhotoUrl());
         updateVersion.setEmail(userDto.getEmail());

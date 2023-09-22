@@ -103,20 +103,17 @@ TicketService {
         }
         // intersection begins empty
         List<Ticket> intersection = new ArrayList<>();
-        // if their is at least one non empty list, put the content of the 1st list into
-        // the
+        // if there is at least one non-empty list, put the content of the 1st list into
+        // the intersection
         if (lists.length > 0) {
             intersection.addAll(lists[0]);
         }
         //
         for (int i = 1; i < lists.length; i++) {
-            if (intersection.isEmpty()){
-                intersection.addAll(lists[i]); // if intersection empty, continue to add next list content
-                // to get a starting comparison point
-            }else{
-                intersection.retainAll(lists[i]);
-                // filter instances not already in intersection.
-            }
+             intersection.retainAll(lists[i]);
+            // filter instances not already in intersection.
+            // Note : could totally remove all results if one criterion isn't satisfied
+            // (example : searching for an eventCity with no result in the database)
         }
 
         return intersection; //return Ticket format
@@ -136,6 +133,7 @@ TicketService {
                 ? Collections.emptyList()
                 : ticketRepository.findTicketsByEventTypeIgnoreCase(eventType);
         // The entities satisfying all the (optional) search criterions are the intersection of separates query results.
+
         List<Ticket> intersection = findIntersection(foundByEventName, foundByEventCity, foundByEventType);
 
         // Convert the matching tickets to DTOs

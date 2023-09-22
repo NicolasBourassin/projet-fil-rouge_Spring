@@ -6,6 +6,7 @@ import com.example.projetfilrouge_Spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -17,9 +18,11 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class UserRestController {
 
-    UserService userService;
-    public UserRestController(UserService userService) {
+    private PasswordEncoder passwordEncoder;
+    private UserService userService;
+    public UserRestController(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/users")
@@ -31,15 +34,15 @@ public class UserRestController {
         return userService.findAll();
     }
 
-    @GetMapping("/users/")
+    @GetMapping("/users?")
     @ResponseBody
-
-    public List<User> getByUsernameIsContainingIgnoreCase(@RequestParam String username) {
+    public List<UserDto> getByUsernameIsContainingIgnoreCase(@RequestParam String username) {
         if (userService.findByUsernameIsContainingIgnoreCase(username) == null){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        return userService.findByUsernameIsContainingIgnoreCase(username);
+        return userService.listToDto(userService.findByUsernameIsContainingIgnoreCase(username));
     }
+
     @GetMapping("/users/{id}")
     public Optional<UserDto> getById(@PathVariable Long id) {
         if (userService.findById(id).isEmpty()){
@@ -48,14 +51,15 @@ public class UserRestController {
         return userService.findById(id);
     }
 
-    @PostMapping("/users")
+    @PostMapping("/auth/register")
     @ResponseStatus(HttpStatus.CREATED)
     public void add(@RequestBody UserDto userDto) {
-        userService.save(new UserDto(userDto.getUsername(), userDto.getPassword(),
+        userService.save(new UserDto(userDto.getUsername(), passwordEncoder.encode(userDto.getPassword()),
                 userDto.getPhoneNumber(), userDto.getPhotoUrl(), userDto.getEmail(),
                 userDto.getRoleList(), userDto.getPurchaseHistory(), userDto.getSellingHistory()));
     }
 
+    // fixme : probably not safe : verify if a connected User can manually modify the url {id} to update another User
     @PutMapping("/users/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<UserDto> updateById(@PathVariable("id") Long id, @RequestBody UserDto userDto){
@@ -65,7 +69,7 @@ public class UserRestController {
         }
         UserDto updateVersion = updateTarget.get();
         //NOTE : here the User is allowed to modify : password, phone number, photoUrl, email, and nothing else.
-        updateVersion.setPassword(userDto.getPassword());
+        updateVersion.setPassword( passwordEncoder.encode(userDto.getPassword()) );
         updateVersion.setPhoneNumber(userDto.getPhoneNumber());
         updateVersion.setPhotoUrl(userDto.getPhotoUrl());
         updateVersion.setEmail(userDto.getEmail());
@@ -76,6 +80,7 @@ public class UserRestController {
         return ResponseEntity.status(HttpStatus.OK).body(updateVersion);
     }
 
+    // fixme : probably not safe : verify if a connected User can manually modify the url {id} to suppr another User
     @DeleteMapping("/users/{id}")
     public ResponseEntity<HttpStatus> deleteById(@PathVariable("id") Long id) {
         Optional<UserDto> userDto = userService.findById(id);

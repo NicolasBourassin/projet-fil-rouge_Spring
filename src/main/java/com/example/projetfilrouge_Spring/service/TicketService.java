@@ -1,14 +1,17 @@
 package com.example.projetfilrouge_Spring.service;
 
 import com.example.projetfilrouge_Spring.controller.model.TicketDto;
+import com.example.projetfilrouge_Spring.controller.model.UserDto;
 import com.example.projetfilrouge_Spring.repository.TicketRepository;
 import com.example.projetfilrouge_Spring.repository.entity.Ticket;
+import com.example.projetfilrouge_Spring.repository.entity.User;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,7 +42,7 @@ TicketService {
 
     public List<TicketDto> findTicketByEventContainingIgnoreCase(String event) {
         List<Ticket> result = ticketRepository.findTicketByEventContainingIgnoreCase(event);
-        List<TicketDto> resultTicketDto = null;
+        List<TicketDto> resultTicketDto = new ArrayList<>();
         for (Ticket ticket: result) {
             TicketDto ticketDto = new TicketDto(Optional.ofNullable(ticket));
             resultTicketDto.add(ticketDto);
@@ -79,6 +82,18 @@ TicketService {
 
     public void deleteById(Long id) {
         ticketRepository.deleteById(id);
+    }
+
+    public TicketDto toDto(Ticket ticket){
+        return new TicketDto(Optional.ofNullable(ticket));
+    }
+
+    public List<TicketDto> listToDto(List<Ticket> ticketList){
+        List<TicketDto> dtoList = new ArrayList<>();
+        for (Ticket ticket:ticketList) {
+            dtoList.add(toDto(ticket));
+        }
+        return dtoList;
     }
 
 

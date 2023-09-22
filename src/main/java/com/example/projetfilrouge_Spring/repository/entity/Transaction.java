@@ -14,9 +14,9 @@ public class Transaction {
     @Column(name ="completed")
     private Boolean completed;
 
-//    @Column(name ="ticket")
-////    @OneToOne(mappedBy = "transaction")
-//    private Ticket ticket;
+    @Column(name ="ticket")
+    @OneToOne(mappedBy = "transaction")
+    private Ticket ticket;
     @Column(name ="date")
     private LocalDate date;
 

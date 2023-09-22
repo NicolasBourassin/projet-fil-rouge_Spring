@@ -20,10 +20,9 @@ public class Ticket {
     @Column(name = "price")
     private Float price;
 
-    //FIXME cardinalités !
-//    @OneToOne(mappedBy = "ticket")
-//    @Column(name = "transaction")
-//    private Transaction transaction;
+    @OneToOne(mappedBy = "ticket")
+    @Column(name = "transaction")
+    private Transaction transaction;
 
     //ajouter cardinalité( one to one ou Many to one)
     public Ticket() {}

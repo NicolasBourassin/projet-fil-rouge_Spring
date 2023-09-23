@@ -35,6 +35,8 @@ TicketService {
     public void save(TicketDto ticketDto) {
         Ticket ticketToAdd = new Ticket(ticketDto.getDate(),
                 ticketDto.getEventName(),
+                ticketDto.getEventType(),
+                ticketDto.getEventCity(),
                 ticketDto.getPrice());
         ticketRepository.save(ticketToAdd);
     }

@@ -31,20 +31,27 @@ public class TicketRestController {
         return ticketService.findAll();
     }
 
-    // TODO : idem avec getByEventCity & getByEventType
-    @GetMapping("/tickets/event")
-    @ResponseBody
-    public List<TicketDto> getByEventName(@RequestParam("eventName") String eventName) {
-        if (ticketService.findTicketByEventNameContainingIgnoreCase(eventName).isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-        return ticketService.findTicketByEventNameContainingIgnoreCase(eventName);
-    }
+//    // TODO : idem avec getByEventCity & getByEventType
+    // // fixme : probably redundant with next multi-parameter search method, but maybe still faster to run ?
+//    @GetMapping("/tickets/event")
+//    @ResponseBody
+//    public List<TicketDto> getByEventName(@RequestParam("eventName") String eventName) {
+//        if (ticketService.findTicketByEventNameContainingIgnoreCase(eventName).isEmpty()) {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+//        }
+//        return ticketService.findTicketByEventNameContainingIgnoreCase(eventName);
+//    }
 
-    //TODO : TOTEST : multiple search criterions !
-    // eventName : partial matches accepted
-    // eventCity & eventType : perfect matches only
 
+    // Multiple parameter searching method :
+    // - eventName : partial matches accepted (upper & lowercase tolerated)
+    // - eventCity & eventType : perfect matches only (but upper & lowercase still tolerated)
+    //
+    // Example request url : http://localhost:8080/api/tickets/search?eventCity=paris&eventType=festival&eventName=ol
+    // will return all festivals at Paris with eventName containing "ol".
+    //
+    // Note : an empty parameter is considered as a catch-all value, so :
+    // http://localhost:8080/api/tickets/search?eventType=festival will return all festivals.
     @GetMapping("/tickets/search")
     @ResponseBody
     public List<TicketDto> searchTickets(
@@ -82,6 +89,8 @@ public class TicketRestController {
 
         updateVersion.setDate(ticketDto.getDate());
         updateVersion.setEventName(ticketDto.getEventName());
+        updateVersion.setEventType(ticketDto.getEventType());
+        updateVersion.setEventCity(ticketDto.getEventCity());
         updateVersion.setPrice(ticketDto.getPrice());
 
         //TODO TEMP

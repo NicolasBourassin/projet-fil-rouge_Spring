@@ -121,33 +121,30 @@ TicketService {
 
 
     public List<TicketDto> searchTickets(String eventName, String eventCity, String eventType) {
+
+        //fixme : gérer cas où l'un des champs de recherche n'a pas été rempli
+        //if a parameter is empty (the user doesn't wish to use that filter),
+        //all the instances are considered to be a match for this selection parameter
+        //to call findIntersection() method.
+        // Example : if user only wants to search on evenType, the selection result will be
+        // findIntersection(findAll(), findAll(), findTicketsByEventTypeIgnoreCase())
         List<Ticket> foundByEventName = StringUtils.isEmpty(eventName)
-                ? Collections.emptyList()
+                ? ticketRepository.findAll()
                 : ticketRepository.findTicketByEventNameContainingIgnoreCase(eventName);
 
         List<Ticket> foundByEventCity = StringUtils.isEmpty(eventCity)
-                ? Collections.emptyList()
+                ? ticketRepository.findAll()
                 : ticketRepository.findTicketsByEventCityIgnoreCase(eventCity);
 
         List<Ticket> foundByEventType = StringUtils.isEmpty(eventType)
-                ? Collections.emptyList()
+                ? ticketRepository.findAll()
                 : ticketRepository.findTicketsByEventTypeIgnoreCase(eventType);
-        // The entities satisfying all the (optional) search criterions are the intersection of separates query results.
 
+
+        // The entities satisfying all the (optional) search criterions are the intersection of separates query results.
         List<Ticket> intersection = findIntersection(foundByEventName, foundByEventCity, foundByEventType);
 
         // Convert the matching tickets to DTOs
         return listToDto(intersection);
     }
-//    public List<TicketDto> searchTickets(String eventName, String eventCity, String eventType) {
-//        List<Ticket> foundByEventName = ticketRepository.findTicketByEventNameContainingIgnoreCase(eventName);
-//        List<Ticket> foundByEventCity = ticketRepository.findTicketsByEventCityIgnoreCase(eventCity);
-//        List<Ticket> foundByEventType = ticketRepository.findTicketsByEventTypeIgnoreCase(eventType);
-//
-//        // The entities satisfying all the (optional) search criterions are the intersection of separates query results.
-//        List<Ticket> intersection = findIntersection(foundByEventName, foundByEventCity, foundByEventType);
-//
-//        // Convert the matching tickets to DTOs
-//        return listToDto(intersection);
-//    }
 }

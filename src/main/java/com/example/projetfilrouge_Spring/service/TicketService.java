@@ -2,7 +2,9 @@ package com.example.projetfilrouge_Spring.service;
 
 import com.example.projetfilrouge_Spring.controller.model.TicketDto;
 import com.example.projetfilrouge_Spring.repository.TicketRepository;
+import com.example.projetfilrouge_Spring.repository.TransactionRepository;
 import com.example.projetfilrouge_Spring.repository.entity.Ticket;
+import com.example.projetfilrouge_Spring.repository.entity.Transaction;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -10,16 +12,17 @@ import org.springframework.util.StringUtils;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class
-TicketService {
+public class TicketService {
     private TicketRepository ticketRepository;
-    public TicketService(TicketRepository ticketRepository) {
+    private TransactionRepository transactionRepository;
+
+    public TicketService(TicketRepository ticketRepository, TransactionRepository transactionRepository) {
         this.ticketRepository = ticketRepository;
+        this.transactionRepository = transactionRepository;
     }
 
     public List<TicketDto> findAll() {
@@ -32,6 +35,7 @@ TicketService {
         return allTicketDto;
     }
 
+    @Transactional
     public void save(TicketDto ticketDto) {
         Ticket ticketToAdd = new Ticket(ticketDto.getDate(),
                 ticketDto.getEventName(),
@@ -39,6 +43,17 @@ TicketService {
                 ticketDto.getEventCity(),
                 ticketDto.getPrice());
         ticketRepository.save(ticketToAdd);
+        Ticket ticketAdded = ticketRepository.findTopByOrderByIdDesc();
+        //TEMP verif
+        System.out.println("Last Ticket added : id " + ticketAdded.getId() + " eventName : " + ticketAdded.getEventName());
+
+        Transaction transactionNotCompleted = new Transaction(false, ticketAdded, LocalDate.now());
+        transactionRepository.save(transactionNotCompleted);
+
+        //TEMP verif
+        Transaction temp_transactionAdded = transactionRepository.findTopByOrderByIdDesc();
+        System.out.println("Last Transaction added : id " + ticketAdded.getId() + " eventName : " + ticketAdded.getEventName());
+
     }
 
     public List<TicketDto> findTicketByEventNameContainingIgnoreCase(String event) {
@@ -58,7 +73,7 @@ TicketService {
 
     @Transactional
     public void update(Long id, TicketDto ticketDto) {
-    // Note : probably not necessary because it's also checked in RestController method
+        // Note : probably not necessary because it's also checked in RestController method
         Ticket ticketToUpdate = ticketRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Ticket with id " + id + " not found"));
 
@@ -97,8 +112,6 @@ TicketService {
         return dtoList;
     }
 
-
-
     public List<Ticket> findIntersection(List<Ticket>... lists) {
         if (lists == null || lists.length == 0) {
             return new ArrayList<>();
@@ -112,7 +125,7 @@ TicketService {
         }
         //
         for (int i = 1; i < lists.length; i++) {
-             intersection.retainAll(lists[i]);
+            intersection.retainAll(lists[i]);
             // filter instances not already in intersection.
             // Note : could totally remove all results if one criterion isn't satisfied
             // (example : searching for an eventCity with no result in the database)

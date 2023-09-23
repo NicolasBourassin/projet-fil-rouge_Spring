@@ -15,4 +15,6 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
     List<Ticket> findTicketByEventNameContainingIgnoreCase(String eventName);
     List<Ticket> findTicketsByEventCityIgnoreCase(String eventCity);
     List<Ticket> findTicketsByEventTypeIgnoreCase(String eventType);
+
+    Ticket findTopByOrderByIdDesc(); // return last Ticket added
 }

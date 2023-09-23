@@ -46,7 +46,7 @@ public class TicketService {
     }
 
     @Transactional
-    public void purchase(Long ticketId){
+    public ResponseEntity<TicketDto> purchase(Long ticketId){
         // Retrieve currently authenticated User
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = authentication.getName();
@@ -56,16 +56,15 @@ public class TicketService {
         Ticket purchasedTicket = ticketRepository.findById(ticketId).get();
         Transaction currentTransaction = purchasedTicket.getTransaction();
 
-        if (currentUser == null) {
-            throw new IllegalStateException("Current user not found");
-        }else if( currentTransaction.getCompleted() ){
+        if( currentTransaction.getCompleted() ){
             // signal if that purchasedTicket is already sold (transaction completed) ==> should be filtered before
             throw new IllegalStateException("Selected ticket was already sold.");
         }else{
-            currentTransaction.setDate(LocalDate.now());
-            currentTransaction.setCompleted(true);
+            currentTransaction.setDate(LocalDate.now()); // date of creation become date of purchase
+            currentTransaction.setCompleted(true); // Transaction isn't available anymore
             currentTransaction.setPurchaseUser(currentUser);
         }
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
 
@@ -112,7 +111,6 @@ public class TicketService {
             throw new IllegalStateException("Current user not found");
         }
 
-        //TODO ONGOING MODIFICATIOOOOOOOOOOOOOOON
         System.out.println(">>> currentUser : " + currentUser.toString());
 
         Ticket ticketToAdd = new Ticket(ticketDto.getDate(),

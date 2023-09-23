@@ -114,17 +114,17 @@ public class TicketRestController {
 
     @PutMapping("/tickets/purchase")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public ResponseEntity.BodyBuilder purchase(@RequestBody Map<String, Long> requestBody) {
+    public ResponseEntity<TicketDto> purchase(@RequestBody Map<String, Long> requestBody) {
         Long id = requestBody.get("id");
 
         if (id == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
         Optional<TicketDto> verifPurchaseTicket = ticketService.findById(id);
 
         if (verifPurchaseTicket.isEmpty()) {
-            return (ResponseEntity.BodyBuilder) ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
         TicketDto purchaseTicket = verifPurchaseTicket.get();
@@ -134,9 +134,8 @@ public class TicketRestController {
         // let ticketService.purchase() handle the update of Transaction.completed = true ; Transaction.date = nom
         // and to add the Transaction to currently logged User purchaseHistory.
 
-        //TODO TEMP
-        ticketService.purchase(id);
-        return (ResponseEntity.BodyBuilder) ResponseEntity.status(HttpStatus.OK).build();
+
+        return ticketService.purchase(id); // purchase method return type is caseResponseEntity.BodyBuilder
     }
 
 

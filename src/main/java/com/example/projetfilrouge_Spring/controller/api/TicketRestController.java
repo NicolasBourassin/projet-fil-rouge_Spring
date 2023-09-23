@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -65,9 +66,14 @@ public class TicketRestController {
             @RequestParam(name = "eventName", required = false) String eventName,
             @RequestParam(name = "eventCity", required = false) String eventCity,
             @RequestParam(name = "eventType", required = false) String eventType) {
+        List<TicketDto> result = ticketService.searchTickets(eventName, eventCity, eventType);
+
+        if (result.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
 
         // Use your service method to perform the search with DTOs
-        return ticketService.searchTickets(eventName, eventCity, eventType);
+        return result;
     }
 
 
@@ -104,6 +110,33 @@ public class TicketRestController {
         System.out.println("TEMP TicketRestController : TicketDto = " + updateVersion.toString() );
         ticketService.update(id, updateVersion);
         return ResponseEntity.status(HttpStatus.OK).body(updateVersion);
+    }
+
+    @PutMapping("/tickets/purchase")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public ResponseEntity.BodyBuilder purchase(@RequestBody Map<String, Long> requestBody) {
+        Long id = requestBody.get("id");
+
+        if (id == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST);
+        }
+
+        Optional<TicketDto> verifPurchaseTicket = ticketService.findById(id);
+
+        if (verifPurchaseTicket.isEmpty()) {
+            return (ResponseEntity.BodyBuilder) ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        TicketDto purchaseTicket = verifPurchaseTicket.get();
+        //TODO (optional) : vérification que le ticket ciblé n'est pas lié à une transaction déjà terminée.
+
+        //TODO call purchase on ticketService
+        // let ticketService.purchase() handle the update of Transaction.completed = true ; Transaction.date = nom
+        // and to add the Transaction to currently logged User purchaseHistory.
+
+        //TODO TEMP
+        ticketService.purchase(id);
+        return (ResponseEntity.BodyBuilder) ResponseEntity.status(HttpStatus.OK).build();
     }
 
 

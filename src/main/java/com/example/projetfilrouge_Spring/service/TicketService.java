@@ -9,6 +9,8 @@ import com.example.projetfilrouge_Spring.repository.entity.Transaction;
 import com.example.projetfilrouge_Spring.repository.entity.User;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -44,6 +46,61 @@ public class TicketService {
     }
 
     @Transactional
+    public void purchase(Long ticketId){
+        // Retrieve currently authenticated User
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName();
+        User currentUser = userRepository.findByUsername(currentUsername).get();
+
+        // get Ticket entity to access linked Transaction
+        Ticket purchasedTicket = ticketRepository.findById(ticketId).get();
+        Transaction currentTransaction = purchasedTicket.getTransaction();
+
+        if (currentUser == null) {
+            throw new IllegalStateException("Current user not found");
+        }else if( currentTransaction.getCompleted() ){
+            // signal if that purchasedTicket is already sold (transaction completed) ==> should be filtered before
+            throw new IllegalStateException("Selected ticket was already sold.");
+        }else{
+            currentTransaction.setDate(LocalDate.now());
+            currentTransaction.setCompleted(true);
+            currentTransaction.setPurchaseUser(currentUser);
+        }
+    }
+
+
+    //TODO : test custom Exceptions if issue with previous version
+//    @Transactional
+//    public void purchase(Long ticketId) {
+//        // Retrieve currently authenticated User
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        String currentUsername = authentication.getName();
+//        User currentUser = userRepository.findByUsername(currentUsername).orElse(null);
+//
+//        // get Ticket entity to access linked Transaction
+//        Ticket purchasedTicket = ticketRepository.findById(ticketId).orElse(null);
+//
+//        if (currentUser == null) {
+//            throw new UserNotFoundException("Current user not found");
+//        }
+//
+//        Transaction currentTransaction = purchasedTicket.getTransaction();
+//
+//        if (currentTransaction == null) {
+//            throw new TransactionNotFoundException("Transaction not found for the selected ticket");
+//        }
+//
+//        if (currentTransaction.getCompleted()) {
+//            throw new IllegalStateException("Selected ticket was already sold.");
+//        }
+//
+//        currentTransaction.setDate(LocalDate.now());
+//        currentTransaction.setCompleted(true);
+//        currentTransaction.setPurchaseUser(currentUser);
+//    }
+
+
+    @Transactional
     public void save(TicketDto ticketDto) {
 
         // Retrieve currently authenticated User
@@ -52,7 +109,6 @@ public class TicketService {
         User currentUser = userRepository.findByUsername(currentUsername).get();
 
         if (currentUser == null) {
-            // Handle the case where currentUser is null, e.g., throw an exception or log an error
             throw new IllegalStateException("Current user not found");
         }
 
@@ -91,7 +147,6 @@ public class TicketService {
             System.out.println("======== add new transaction ========");
             currentUser.getSellingHistory().add(transactionSelling);
             // Save the updated user (with transactionAdded added to sellingHistory)
-            //fixme : only keep the last transaction added, should add it to the existing list !
             userRepository.save(currentUser);
             System.out.println("CurrentUser sellingHistory : AFTER saving new Transaction");
             for (Transaction transaction : currentUser.getSellingHistory()) {

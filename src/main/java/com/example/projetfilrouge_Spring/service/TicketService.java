@@ -74,6 +74,7 @@ public class TicketService {
 
         // verification print :
         Transaction transactionSelling = transactionRepository.findTopByOrderByIdDesc();
+        transactionSelling.setSellingUser(currentUser);
         System.out.println("Last Transaction added : id " + transactionSelling.getId()
                 + " - eventName : " + ticketAdded.getEventName()
                 + " - ticket_id : " + transactionSelling.getTicket().getId());

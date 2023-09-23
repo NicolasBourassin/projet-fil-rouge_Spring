@@ -25,8 +25,17 @@ public class Transaction {
     private Float rating;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "purchaseuser_id")
+    private User purchaseUser;
+
+    @ManyToOne
+    @JoinColumn(name = "sellinguser_id")
+    private User sellingUser;
+
+
+//    @ManyToOne
+//    @JoinColumn(name = "user")
+//    private User user;
 
     public Transaction() {}
 
@@ -59,6 +68,22 @@ public class Transaction {
     public Long getId() {return id;}
 
     public void setId(Long id) {this.id = id;}
+
+    public User getPurchaseUser() {
+        return purchaseUser;
+    }
+
+    public void setPurchaseUser(User purchase_user) {
+        this.purchaseUser = purchase_user;
+    }
+
+    public User getSellingUser() {
+        return sellingUser;
+    }
+
+    public void setSellingUser(User selling_user) {
+        this.sellingUser = selling_user;
+    }
 
     @Override
     public String toString() {

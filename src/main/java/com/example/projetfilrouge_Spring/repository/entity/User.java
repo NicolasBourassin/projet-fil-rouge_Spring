@@ -30,9 +30,9 @@ public class User implements UserDetails {
     @ManyToMany(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
     private List<Role> roleList;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "purchaseUser")
     private List<Transaction> purchaseHistory;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "sellingUser")
     private List<Transaction> sellingHistory;
 
     public User() {}

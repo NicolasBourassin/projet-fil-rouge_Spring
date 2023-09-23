@@ -143,8 +143,8 @@ public class User implements UserDetails {
                 ", photoUrl='" + photoUrl + '\'' +
                 ", email='" + email + '\'' +
                 ", roleList=" + roleList +
-                ", purchaseHistory=" + purchaseHistory +
-                ", sellingHistory=" + sellingHistory +
+                ", purchaseHistory size=" + purchaseHistory.size() +
+                ", sellingHistory size=" + sellingHistory.size() +
                 '}';
     }
 }

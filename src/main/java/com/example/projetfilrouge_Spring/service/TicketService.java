@@ -3,10 +3,14 @@ package com.example.projetfilrouge_Spring.service;
 import com.example.projetfilrouge_Spring.controller.model.TicketDto;
 import com.example.projetfilrouge_Spring.repository.TicketRepository;
 import com.example.projetfilrouge_Spring.repository.TransactionRepository;
+import com.example.projetfilrouge_Spring.repository.UserRepository;
 import com.example.projetfilrouge_Spring.repository.entity.Ticket;
 import com.example.projetfilrouge_Spring.repository.entity.Transaction;
+import com.example.projetfilrouge_Spring.repository.entity.User;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -19,10 +23,14 @@ import java.util.Optional;
 public class TicketService {
     private TicketRepository ticketRepository;
     private TransactionRepository transactionRepository;
+    private UserRepository userRepository;
 
-    public TicketService(TicketRepository ticketRepository, TransactionRepository transactionRepository) {
+    public TicketService(TicketRepository ticketRepository,
+                         TransactionRepository transactionRepository,
+                         UserRepository userRepository) {
         this.ticketRepository = ticketRepository;
         this.transactionRepository = transactionRepository;
+        this.userRepository = userRepository;
     }
 
     public List<TicketDto> findAll() {
@@ -37,6 +45,15 @@ public class TicketService {
 
     @Transactional
     public void save(TicketDto ticketDto) {
+
+        // Retrieve currently authenticated User
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName();
+        User currentUser = userRepository.findByUsername(currentUsername).get();
+
+        //TODO ONGOING MODIFICATIOOOOOOOOOOOOOOON
+        System.out.println(">>> currentUser : " + currentUser.toString());
+
         Ticket ticketToAdd = new Ticket(ticketDto.getDate(),
                 ticketDto.getEventName(),
                 ticketDto.getEventType(),
@@ -44,16 +61,36 @@ public class TicketService {
                 ticketDto.getPrice());
         ticketRepository.save(ticketToAdd);
         Ticket ticketAdded = ticketRepository.findTopByOrderByIdDesc();
-        //TEMP verif
+        // verification print :
         System.out.println("Last Ticket added : id " + ticketAdded.getId() + " eventName : " + ticketAdded.getEventName());
 
         Transaction transactionNotCompleted = new Transaction(false, ticketAdded, LocalDate.now());
         transactionRepository.save(transactionNotCompleted);
 
-        //TEMP verif
-        Transaction temp_transactionAdded = transactionRepository.findTopByOrderByIdDesc();
-        System.out.println("Last Transaction added : id " + ticketAdded.getId() + " eventName : " + ticketAdded.getEventName());
+        // verification print :
+        Transaction transactionSelling = transactionRepository.findTopByOrderByIdDesc();
+        System.out.println("Last Transaction added : id " + transactionSelling.getId()
+                + " - eventName : " + ticketAdded.getEventName()
+                + " - ticket_id : " + transactionSelling.getTicket().getId());
 
+        // Add the transaction to the user's sellingHistory
+        System.out.println("CurrentUser sellingHistory : BEFORE saving new Transaction");
+        for (Transaction transaction:currentUser.getSellingHistory()) {
+            System.out.println("Transaction id : " + transaction.getId()
+                    + " - completed : " + transaction.getCompleted()
+                    + " - ticket eventName : " + transaction.getTicket().getEventName());
+        }
+        System.out.println("======== add new transaction ========");
+        currentUser.getSellingHistory().add(transactionSelling);
+        // Save the updated user (with transactionAdded added to sellingHistory)
+        //fixme : only keep last transaction added, should add it to the existing list !
+        userRepository.save(currentUser);
+        System.out.println("CurrentUser sellingHistory : AFTER saving new Transaction");
+        for (Transaction transaction:currentUser.getSellingHistory()) {
+            System.out.println("Transaction id : " + transaction.getId()
+                    + " - completed : " + transaction.getCompleted()
+                    + " - ticket eventName : " + transaction.getTicket().getEventName());
+        }
     }
 
     public List<TicketDto> findTicketByEventNameContainingIgnoreCase(String event) {

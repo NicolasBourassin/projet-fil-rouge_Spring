@@ -3,6 +3,7 @@ package com.example.projetfilrouge_Spring;
 import com.example.projetfilrouge_Spring.controller.api.TicketRestController;
 import com.example.projetfilrouge_Spring.controller.api.UserRestController;
 import com.example.projetfilrouge_Spring.controller.model.TicketDto;
+import com.example.projetfilrouge_Spring.controller.model.UserDto;
 import com.example.projetfilrouge_Spring.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -93,7 +94,31 @@ public class FilRougeApplication implements CommandLineRunner {
 
 //		UserDto user = new UserDto("sam", passwordEncoder.encode("123"),"","","sam@null.com");
 //		userRestController.add(user);
-
+// TODO : create test users
+		UserDto user1 = new UserDto("HedyLamarr",
+				passwordEncoder.encode("gps"),
+				"0102030405",
+				"https://commons.wikimedia.org/wiki/File:Hedy_Lamarr_in_The_Heavenly_Body_1944.jpg?uselang=fr",
+				"HedyLamarr@mail.com");
+		UserDto user2 = new UserDto("cyrano",
+				passwordEncoder.encode("nez"),
+				"0102030405",
+				"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Coquelin_ain%C3%A9.jpg/250px-Coquelin_ain%C3%A9.jpg?uselang=fr",
+				"cyrano@mail.com");
+		UserDto user3 = new UserDto("a",
+				passwordEncoder.encode("a"),
+				"0102030405",
+				"https://www.goines.net/acra_book/acra_content/files/sequence%20letters/sequence_a.jpg",
+				"a@mail.com");
+		UserDto user4 = new UserDto("GaryLarson",
+				passwordEncoder.encode("fearoftheduck"),
+				"0122222222",
+				"https://i.pinimg.com/originals/eb/f4/37/ebf43735149fd6ed1e7d260234264080.jpg",
+				"fearoftheduck@mail.com");
+		userRestController.add(user1);
+		userRestController.add(user2);
+		userRestController.add(user3);
+		userRestController.add(user4);
 
 	}
 }

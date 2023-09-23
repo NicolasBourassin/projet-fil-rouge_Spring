@@ -51,6 +51,11 @@ public class TicketService {
         String currentUsername = authentication.getName();
         User currentUser = userRepository.findByUsername(currentUsername).get();
 
+        if (currentUser == null) {
+            // Handle the case where currentUser is null, e.g., throw an exception or log an error
+            throw new IllegalStateException("Current user not found");
+        }
+
         //TODO ONGOING MODIFICATIOOOOOOOOOOOOOOON
         System.out.println(">>> currentUser : " + currentUser.toString());
 
@@ -73,26 +78,28 @@ public class TicketService {
                 + " - eventName : " + ticketAdded.getEventName()
                 + " - ticket_id : " + transactionSelling.getTicket().getId());
 
-        // Add the transaction to the user's sellingHistory
-        System.out.println("CurrentUser sellingHistory : BEFORE saving new Transaction");
-        for (Transaction transaction:currentUser.getSellingHistory()) {
-            System.out.println("Transaction id : " + transaction.getId()
-                    + " - completed : " + transaction.getCompleted()
-                    + " - ticket eventName : " + transaction.getTicket().getEventName());
-        }
-        System.out.println("======== add new transaction ========");
-        currentUser.getSellingHistory().add(transactionSelling);
-        // Save the updated user (with transactionAdded added to sellingHistory)
-        //fixme : only keep last transaction added, should add it to the existing list !
-        userRepository.save(currentUser);
-        System.out.println("CurrentUser sellingHistory : AFTER saving new Transaction");
-        for (Transaction transaction:currentUser.getSellingHistory()) {
-            System.out.println("Transaction id : " + transaction.getId()
-                    + " - completed : " + transaction.getCompleted()
-                    + " - ticket eventName : " + transaction.getTicket().getEventName());
+        // Check if currentUser is not null before adding to sellingHistory
+        if (currentUser != null) {
+            // Add the transaction to the user's sellingHistory
+            System.out.println("CurrentUser sellingHistory : BEFORE saving new Transaction");
+            for (Transaction transaction : currentUser.getSellingHistory()) {
+                System.out.println("Transaction id : " + transaction.getId()
+                        + " - completed : " + transaction.getCompleted()
+                        + " - ticket eventName : " + transaction.getTicket().getEventName());
+            }
+            System.out.println("======== add new transaction ========");
+            currentUser.getSellingHistory().add(transactionSelling);
+            // Save the updated user (with transactionAdded added to sellingHistory)
+            //fixme : only keep the last transaction added, should add it to the existing list !
+            userRepository.save(currentUser);
+            System.out.println("CurrentUser sellingHistory : AFTER saving new Transaction");
+            for (Transaction transaction : currentUser.getSellingHistory()) {
+                System.out.println("Transaction id : " + transaction.getId()
+                        + " - completed : " + transaction.getCompleted()
+                        + " - ticket eventName : " + transaction.getTicket().getEventName());
+            }
         }
     }
-
     public List<TicketDto> findTicketByEventNameContainingIgnoreCase(String event) {
         List<Ticket> result = ticketRepository.findTicketByEventNameContainingIgnoreCase(event);
         List<TicketDto> resultTicketDto = new ArrayList<>();

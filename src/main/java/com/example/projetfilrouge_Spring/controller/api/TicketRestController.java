@@ -43,15 +43,19 @@ public class TicketRestController {
 //    }
 
 
-    // Multiple parameter searching method :
-    // - eventName : partial matches accepted (upper & lowercase tolerated)
-    // - eventCity & eventType : perfect matches only (but upper & lowercase still tolerated)
-    //
-    // Example request url : http://localhost:8080/api/tickets/search?eventCity=paris&eventType=festival&eventName=ol
-    // will return all festivals at Paris with eventName containing "ol".
-    //
-    // Note : an empty parameter is considered as a catch-all value, so :
-    // http://localhost:8080/api/tickets/search?eventType=festival will return all festivals.
+    /** List<TicketDto> searchTickets(
+     @RequestParam(name = "eventName", required = false) String eventName,
+     @RequestParam(name = "eventCity", required = false) String eventCity,
+     @RequestParam(name = "eventType", required = false) String eventType)
+     *  Multiple parameter searching method :
+     * - eventName : partial matches accepted (upper & lowercase tolerated)
+     * - eventCity & eventType : perfect matches only (but upper & lowercase still tolerated)
+     *
+     * Example request url : http://localhost:8080/api/tickets/search?eventCity=paris&eventType=festival&eventName=ol
+     * will return all festivals at Paris with eventName containing "ol".
+     *
+     * Note : an empty parameter is considered as a catch-all value, so :
+     * http://localhost:8080/api/tickets/search?eventType=festival will return all festivals. */
     @GetMapping("/tickets/search")
     @ResponseBody
     public List<TicketDto> searchTickets(

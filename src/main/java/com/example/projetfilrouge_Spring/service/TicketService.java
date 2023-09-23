@@ -253,6 +253,9 @@ public class TicketService {
                 ? ticketRepository.findAll()
                 : ticketRepository.findTicketsByEventTypeIgnoreCase(eventType);
 
+        // TODO add conditions to exclude Tickets with date already passed,
+        //  and Tickets of already completed Transaction
+
 
         // The entities satisfying all the (optional) search criterions are the intersection of separates query results.
         List<Ticket> intersection = findIntersection(foundByEventName, foundByEventCity, foundByEventType);

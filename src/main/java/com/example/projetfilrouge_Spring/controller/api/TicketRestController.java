@@ -56,6 +56,9 @@ public class TicketRestController {
      *
      * Note : an empty parameter is considered as a catch-all value, so :
      * http://localhost:8080/api/tickets/search?eventType=festival will return all festivals. */
+
+    // TODO : quand Transaction mise en place à chaque création de ticket, ajout du paramètre "Completed" pour pouvoir
+    //  exclure les tickets déjà vendus !
     @GetMapping("/tickets/search")
     @ResponseBody
     public List<TicketDto> searchTickets(

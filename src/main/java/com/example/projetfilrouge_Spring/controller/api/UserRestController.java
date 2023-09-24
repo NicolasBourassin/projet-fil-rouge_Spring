@@ -1,9 +1,7 @@
 package com.example.projetfilrouge_Spring.controller.api;
 
 import com.example.projetfilrouge_Spring.controller.model.UserDto;
-import com.example.projetfilrouge_Spring.repository.entity.User;
 import com.example.projetfilrouge_Spring.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -51,7 +49,7 @@ public class UserRestController {
         return userService.findById(id);
     }
 
-    @PostMapping("/auth/register")
+    @PostMapping("/users/register")
     @ResponseStatus(HttpStatus.CREATED)
     public void add(@RequestBody UserDto userDto) {
         userService.save(new UserDto(userDto.getUsername(), passwordEncoder.encode(userDto.getPassword()),
@@ -62,7 +60,7 @@ public class UserRestController {
     // fixme : probably not safe : verify if a connected User can manually modify the url {id} to update another User
     @PutMapping("/users/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public ResponseEntity<UserDto> updateById(@PathVariable("id") Long id, @RequestBody UserDto userDto){
+    public ResponseEntity<UserDto> updateById(@PathVariable Long id, @RequestBody UserDto userDto){
         Optional<UserDto> updateTarget = userService.findById(id);
         if (updateTarget.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

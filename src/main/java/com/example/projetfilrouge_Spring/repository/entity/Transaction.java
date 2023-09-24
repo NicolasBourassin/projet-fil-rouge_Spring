@@ -14,16 +14,15 @@ public class Transaction {
     @Column(name = "completed")
     private Boolean completed;
 
-    @OneToOne
-    @JoinColumn(name = "ticket_id", referencedColumnName = "id")
-    private Ticket ticket;
-
     @Column(name = "date")
     private LocalDate date;
 
     @Column(name = "rating")
     private Float rating;
 
+    @OneToOne
+    @JoinColumn(name = "ticket_id", referencedColumnName = "id")
+    private Ticket ticket;
     @ManyToOne
     @JoinColumn(name = "purchaseuser_id")
     private User purchaseUser;

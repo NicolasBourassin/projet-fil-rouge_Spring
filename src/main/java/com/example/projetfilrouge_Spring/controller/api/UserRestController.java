@@ -52,6 +52,7 @@ public class UserRestController {
     @PostMapping("/users/register")
     @ResponseStatus(HttpStatus.CREATED)
     public void add(@RequestBody UserDto userDto) {
+        System.out.println("REGISTER CALLED, userDto :"+userDto.toString());
         userService.save(new UserDto(userDto.getUsername(), passwordEncoder.encode(userDto.getPassword()),
                 userDto.getPhoneNumber(), userDto.getPhotoUrl(), userDto.getEmail(),
                 userDto.getRoleList(), userDto.getPurchaseHistory(), userDto.getSellingHistory()));

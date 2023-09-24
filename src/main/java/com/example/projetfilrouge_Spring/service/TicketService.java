@@ -252,13 +252,14 @@ public class TicketService {
         List<Ticket> foundByEventType = StringUtils.isEmpty(eventType)
                 ? ticketRepository.findAll()
                 : ticketRepository.findTicketsByEventTypeIgnoreCase(eventType);
-
         // TODO add conditions to exclude Tickets with date already passed,
         //  and Tickets of already completed Transaction
-
+        // filter tickets with already passed dates
+        List<Ticket> foundByValidDate = ticketRepository.findTicketsByDateAfter(LocalDate.now());
 
         // The entities satisfying all the (optional) search criterions are the intersection of separates query results.
-        List<Ticket> intersection = findIntersection(foundByEventName, foundByEventCity, foundByEventType);
+        List<Ticket> intersection = findIntersection(foundByEventName, foundByEventCity, foundByEventType,
+                foundByValidDate);
 
         // Convert the matching tickets to DTOs
         return listToDto(intersection);

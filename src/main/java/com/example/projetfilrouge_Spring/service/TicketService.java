@@ -232,7 +232,6 @@ public class TicketService {
         return intersection; //return Ticket format
     }
 
-
     public List<TicketDto> searchTickets(String eventName, String eventCity, String eventType) {
 
         //fixme : gérer cas où l'un des champs de recherche n'a pas été rempli
@@ -256,10 +255,16 @@ public class TicketService {
         //  and Tickets of already completed Transaction
         // filter tickets with already passed dates
         List<Ticket> foundByValidDate = ticketRepository.findTicketsByDateAfter(LocalDate.now());
+        // filter tickets linked to a Transaction with completed=true
+        List<Ticket> foundByTransactionNotCompleted = ticketRepository.findByTransactionCompleted(false);
+
 
         // The entities satisfying all the (optional) search criterions are the intersection of separates query results.
-        List<Ticket> intersection = findIntersection(foundByEventName, foundByEventCity, foundByEventType,
-                foundByValidDate);
+        List<Ticket> intersection = findIntersection(foundByEventName,
+                foundByEventCity,
+                foundByEventType,
+                foundByValidDate,
+                foundByTransactionNotCompleted);
 
         // Convert the matching tickets to DTOs
         return listToDto(intersection);

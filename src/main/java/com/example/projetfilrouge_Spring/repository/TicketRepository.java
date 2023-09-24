@@ -17,4 +17,6 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
     List<Ticket> findTicketsByEventTypeIgnoreCase(String eventType);
     List<Ticket> findTicketsByDateAfter(LocalDate date);
     Ticket findTopByOrderByIdDesc(); // return last Ticket added
+
+    List<Ticket> findByTransactionCompleted(boolean completed); // return Ticket linked to a Transaction with
 }

@@ -166,9 +166,9 @@ public class UserDto{
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", photoUrl='" + photoUrl + '\'' +
                 ", email='" + email + '\'' +
-                ", roleList=" + roleList +
-                ", purchaseHistory=" + purchaseHistory +
-                ", sellingHistory=" + sellingHistory +
+                ", roleList size=" + roleList.size() +
+                ", purchaseHistory size=" + purchaseHistory.size() +
+                ", sellingHistory size=" + sellingHistory.size() +
                 '}';
     }
 }

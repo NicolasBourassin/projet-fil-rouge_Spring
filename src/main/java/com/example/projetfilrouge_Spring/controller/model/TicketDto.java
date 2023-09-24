@@ -12,6 +12,7 @@ public class TicketDto {
     private String eventType;
     private String eventCity;
     private Float price;
+    private Long transactionId;
 
     public TicketDto() {
     }
@@ -23,6 +24,17 @@ public class TicketDto {
         this.eventCity = ticket.get().getEventCity();
         this.eventType = ticket.get().getEventType();
         this.price = ticket.get().getPrice();
+        this.transactionId = ticket.get().getTransaction().getId();
+    }
+
+    public TicketDto(Long id, LocalDate date, String eventName, String eventType, String eventCity, Float price, Long transactionId) {
+        this.id = id;
+        this.date = date;
+        this.eventName = eventName;
+        this.eventType = eventType;
+        this.eventCity = eventCity;
+        this.price = price;
+        this.transactionId = transactionId;
     }
 
     public TicketDto(Long id, LocalDate date, String eventName, String eventType, String eventCity, Float price) {

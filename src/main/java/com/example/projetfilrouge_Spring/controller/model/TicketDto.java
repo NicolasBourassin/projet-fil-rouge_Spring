@@ -102,6 +102,14 @@ public class TicketDto {
         this.eventCity = eventCity;
     }
 
+    public Long getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(Long transactionId) {
+        this.transactionId = transactionId;
+    }
+
     @Override
     public String toString() {
         return "TicketDto{" +

@@ -1,5 +1,7 @@
 package com.example.projetfilrouge_Spring.repository.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
@@ -22,13 +24,16 @@ public class Transaction {
 
     @OneToOne
     @JoinColumn(name = "ticket_id", referencedColumnName = "id")
+    @JsonIgnoreProperties("transaction")
     private Ticket ticket;
     @ManyToOne
     @JoinColumn(name = "purchaseuser_id")
+    @JsonIgnoreProperties("purchaseHistory")
     private User purchaseUser;
 
     @ManyToOne
     @JoinColumn(name = "sellinguser_id")
+    @JsonIgnoreProperties("sellingHistory")
     private User sellingUser;
 
 
@@ -90,10 +95,6 @@ public class Transaction {
                 "id=" + id +
                 ", completed=" + completed +
                 ", date=" + date +
-                ", rating=" + rating +
-                ", ticket=" + ticket +
-                ", purchaseUser=" + purchaseUser +
-                ", sellingUser=" + sellingUser +
                 '}';
     }
 }

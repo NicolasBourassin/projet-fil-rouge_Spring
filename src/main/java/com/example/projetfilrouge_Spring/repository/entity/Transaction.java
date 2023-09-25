@@ -89,10 +89,11 @@ public class Transaction {
         return "Transaction{" +
                 "id=" + id +
                 ", completed=" + completed +
-                ", ticket=" + ticket +
-                ", date=" + date +
                 ", date=" + date +
                 ", rating=" + rating +
-                "}";
+                ", ticket=" + ticket +
+                ", purchaseUser=" + purchaseUser +
+                ", sellingUser=" + sellingUser +
+                '}';
     }
 }

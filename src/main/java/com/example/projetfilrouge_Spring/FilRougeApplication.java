@@ -17,6 +17,7 @@ import java.time.LocalDate;
 public class FilRougeApplication implements CommandLineRunner {
 	private UserRestController userRestController;
 	private TicketRestController ticketRestController;
+	private UserDto userDto;
 
 	@Autowired
 	private UserRepository userRepo;
@@ -116,6 +117,8 @@ public class FilRougeApplication implements CommandLineRunner {
 //			System.out.println("Test User getByUsernameIsContainingIgnoreCase : " + dto.getUsername().toString());
 //		}
 
+//		UserDto userDto1 = new UserDto("marine","marine");
+//userRestController.add(userDto1);
 
 	}
 }

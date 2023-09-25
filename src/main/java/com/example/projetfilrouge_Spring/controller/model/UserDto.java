@@ -4,6 +4,7 @@ import com.example.projetfilrouge_Spring.repository.entity.Role;
 import com.example.projetfilrouge_Spring.repository.entity.Transaction;
 import com.example.projetfilrouge_Spring.repository.entity.User;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,9 +15,9 @@ public class UserDto{
     private String phoneNumber;
     private String photoUrl;
     private String email;
-    private List<Role> roleList;
-    private List<Transaction> purchaseHistory;
-    private List<Transaction> sellingHistory;
+    private List<Role> roleList = new ArrayList<>();
+    private List<Transaction> purchaseHistory = new ArrayList<>();
+    private List<Transaction> sellingHistory = new ArrayList<>();
 
     public UserDto() {
     }
@@ -138,7 +139,10 @@ public class UserDto{
     }
 
     public void setPurchaseHistory(List<Transaction> purchaseHistory) {
-        this.purchaseHistory = purchaseHistory;
+        if (purchaseHistory !=null)
+        {
+            this.purchaseHistory = purchaseHistory;
+        }
     }
 
     public List<Transaction> getSellingHistory() {
@@ -146,7 +150,10 @@ public class UserDto{
     }
 
     public void setSellingHistory(List<Transaction> sellingHistory) {
-        this.sellingHistory = sellingHistory;
+        if ( sellingHistory !=null)
+        {
+            this.sellingHistory = sellingHistory;
+        }
     }
 
     public List<Role> getRoleList() {
@@ -154,7 +161,10 @@ public class UserDto{
     }
 
     public void setRoleList(List<Role> roleList) {
-        this.roleList = roleList;
+        if (roleList !=null)
+        {
+            this.roleList = roleList;
+        }
     }
 
     @Override

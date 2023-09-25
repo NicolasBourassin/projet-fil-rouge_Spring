@@ -1,10 +1,13 @@
 package com.example.projetfilrouge_Spring.repository.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "ticket")
+@JsonSerialize(using = TicketSerializer.class)
 public class Ticket {
 
     @Id
@@ -28,6 +31,7 @@ public class Ticket {
 
     @OneToOne(mappedBy = "ticket", cascade = CascadeType.ALL)
     @JoinColumn(name = "transaction_id")
+    @JsonIgnoreProperties("ticket")
     private Transaction transaction;
 
     public Ticket() {
@@ -121,9 +125,6 @@ public class Ticket {
                 ", date=" + date +
                 ", eventName='" + eventName + '\'' +
                 ", price=" + price +
-                ", transaction ID = " + transaction.getId() +
-                ", transaction completed = " + transaction.getCompleted() +
-                ", transaction date = " + transaction.getDate() +
                 "}";
     }
 }

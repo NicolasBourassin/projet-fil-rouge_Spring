@@ -1,5 +1,6 @@
 package com.example.projetfilrouge_Spring.repository.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -30,8 +31,10 @@ public class User implements UserDetails {
     private List<Role> roleList;
 
     @OneToMany(mappedBy = "purchaseUser")
+    @JsonIgnoreProperties("purchaseUser")
     private List<Transaction> purchaseHistory;
     @OneToMany(mappedBy = "sellingUser")
+    @JsonIgnoreProperties("sellingUser")
     private List<Transaction> sellingHistory;
 
     public User() {}
@@ -88,11 +91,11 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities()
     {
-        this.roleList
+        return this.roleList
                 .stream()
                 .map(role -> new SimpleGrantedAuthority(role.getRolename()))
                 .collect(Collectors.toList());
-        return null;}
+        }
 
     public Long getId() {return id;}
 

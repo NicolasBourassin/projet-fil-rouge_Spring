@@ -56,12 +56,22 @@ public class FilRougeApplication implements CommandLineRunner {
 //				"0144444444",
 //				"https://i.pinimg.com/originals/eb/f4/37/ebf43735149fd6ed1e7d260234264080.jpg",
 //				"fearoftheduck@mail.com");
+//		UserDto user5 = new UserDto("steeve",
+//				"steeve",
+//				"0102030456",
+//				"https://commons.wikimedia.org/wiki/File:Martin_Luther_King,_Jr..jpg#/media/Fichier:Martin_Luther_King,_Jr..jpg",
+//				"steeve@monmail.com");
+//		UserDto user6 = new UserDto("marine",
+//				"marine",
+//				"0102034567",
+//				"https://focusbresil.com/musique/qui-etait-marilia-mendonca-leader-du-feminejo/",
+//				"marine@monmail.com");
 //		userRestController.add(user1);
 //		userRestController.add(user2);
 //		userRestController.add(user3);
 //		userRestController.add(user4);
-
-
+//		userRestController.add(user5);
+//		userRestController.add(user6);
 
 		// CRUD :
 		// CREATE  : OK via RestController for User

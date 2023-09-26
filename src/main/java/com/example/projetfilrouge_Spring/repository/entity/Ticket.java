@@ -55,7 +55,7 @@ public class Ticket {
         this.price = price;
     }
 
-    public Ticket(LocalDate date, String event, Float price) {
+    public Ticket(LocalDate date, String eventName, Float price) {
         this.date = date;
         this.eventName = eventName;
         this.price = price;

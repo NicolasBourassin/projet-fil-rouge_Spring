@@ -57,7 +57,8 @@ public class TicketService {
         Transaction currentTransaction = purchasedTicket.getTransaction();
 
         if( currentTransaction.getCompleted() ){
-            // signal if that purchasedTicket is already sold (transaction completed) ==> should be filtered before
+            // signal if that purchasedTicket is already sold (transaction completed)
+            // ==> is filtered before, additional check to be safe
             throw new IllegalStateException("Selected ticket was already sold.");
         }else{
             currentTransaction.setDate(LocalDate.now()); // date of creation become date of purchase
@@ -66,38 +67,6 @@ public class TicketService {
         }
         return ResponseEntity.status(HttpStatus.OK).build();
     }
-
-
-    //TODO : test custom Exceptions if issue with previous version
-//    @Transactional
-//    public void purchase(Long ticketId) {
-//        // Retrieve currently authenticated User
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        String currentUsername = authentication.getName();
-//        User currentUser = userRepository.findByUsername(currentUsername).orElse(null);
-//
-//        // get Ticket entity to access linked Transaction
-//        Ticket purchasedTicket = ticketRepository.findById(ticketId).orElse(null);
-//
-//        if (currentUser == null) {
-//            throw new UserNotFoundException("Current user not found");
-//        }
-//
-//        Transaction currentTransaction = purchasedTicket.getTransaction();
-//
-//        if (currentTransaction == null) {
-//            throw new TransactionNotFoundException("Transaction not found for the selected ticket");
-//        }
-//
-//        if (currentTransaction.getCompleted()) {
-//            throw new IllegalStateException("Selected ticket was already sold.");
-//        }
-//
-//        currentTransaction.setDate(LocalDate.now());
-//        currentTransaction.setCompleted(true);
-//        currentTransaction.setPurchaseUser(currentUser);
-//    }
-
 
     @Transactional
     public void save(TicketDto ticketDto) {
@@ -246,7 +215,7 @@ public class TicketService {
 
         List<Ticket> foundByEventCity = StringUtils.isEmpty(eventCity)
                 ? ticketRepository.findAll()
-                : ticketRepository.findTicketsByEventCityIgnoreCase(eventCity);
+                : ticketRepository.findTicketsByEventCityContainingIgnoreCase(eventCity);
 
         List<Ticket> foundByEventType = StringUtils.isEmpty(eventType)
                 ? ticketRepository.findAll()

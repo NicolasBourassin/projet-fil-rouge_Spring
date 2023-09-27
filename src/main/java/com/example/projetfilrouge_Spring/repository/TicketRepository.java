@@ -13,7 +13,7 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
     List<Ticket> findTicketsByEventNameContainingIgnoreCaseAndDateBefore(String event, LocalDate current_date);
     List<Ticket> findTicketByEventNameContainingIgnoreCase(String eventName);
-    List<Ticket> findTicketsByEventCityIgnoreCase(String eventCity);
+    List<Ticket> findTicketsByEventCityContainingIgnoreCase(String eventCity);
     List<Ticket> findTicketsByEventTypeIgnoreCase(String eventType);
     List<Ticket> findTicketsByDateAfter(LocalDate date);
     Ticket findTopByOrderByIdDesc(); // return last Ticket added

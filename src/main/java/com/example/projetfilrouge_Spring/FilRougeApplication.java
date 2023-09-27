@@ -44,7 +44,7 @@ public class FilRougeApplication implements CommandLineRunner {
 //		UserDto user2 = new UserDto("cyrano",
 //				"nez",
 //				"0122222222",
-//				"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Coquelin_ain%C3%A9.jpg/250px-Coquelin_ain%C3%A9.jpg?uselang=fr",
+//				"https://marschuunibyou.files.wordpress.com/2015/01/cyranoblog.jpg",
 //				"cyrano@mail.com");
 //		UserDto user3 = new UserDto("a",
 //				"a",
@@ -66,6 +66,7 @@ public class FilRougeApplication implements CommandLineRunner {
 //				"0102034567",
 //				"https://focusbresil.com/musique/qui-etait-marilia-mendonca-leader-du-feminejo/",
 //				"marine@monmail.com");
+//
 //		userRestController.add(user1);
 //		userRestController.add(user2);
 //		userRestController.add(user3);

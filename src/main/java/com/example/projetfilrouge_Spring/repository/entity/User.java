@@ -1,6 +1,6 @@
 package com.example.projetfilrouge_Spring.repository.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -31,10 +31,10 @@ public class User implements UserDetails {
     private List<Role> roleList;
 
     @OneToMany(mappedBy = "purchaseUser")
-    @JsonIgnoreProperties("purchaseUser")
+    @JsonIgnore
     private List<Transaction> purchaseHistory;
     @OneToMany(mappedBy = "sellingUser")
-    @JsonIgnoreProperties("sellingUser")
+    @JsonIgnore
     private List<Transaction> sellingHistory;
 
     public User() {}
